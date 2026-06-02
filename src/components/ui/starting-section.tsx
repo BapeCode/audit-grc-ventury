@@ -1,4 +1,5 @@
 import Button from "@/components/ui/ui/button";
+import Link from "next/link";
 
 export default function StartingSection() {
 
@@ -9,9 +10,11 @@ export default function StartingSection() {
                 <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Ce pré-audit permet d&apos;identifier le niveau de maturité de votre organisation face aux standards ISO 27001 et aux bonnes pratiques de la Gourvernance, Risques et Continuité</p>
             </div>
 
-            <Button variant={"primary"}>
-                Démarrer l'analyse
-            </Button>
+            <Link href={"/audit"} className="w-full">
+                <Button variant={"primary"}>
+                    Démarrer l'analyse
+                </Button>
+            </Link>
         </section>
     )
 

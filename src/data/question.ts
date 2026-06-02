@@ -1,11 +1,24 @@
-import {Domaine, Questions} from "@/types/quiz";
+import {AnswerType, Domaine, Questions} from "@/types/quiz";
 
-const questions: Questions[] = [
+export const questions: Questions[] = [
     {
         id: "GouvOrg1",
-        domaine: "Gourvernance & Organisation",
+        domaine: "Gouvernance",
         questionText: "Avez-vous une personne ou un service clairement identifié pour gérer la cybersécurité dans votre structure ?",
         exampleText: "Exemple : RSSI, DSI ou prestataire informatique référent",
+        points: 7,
+        recommandation: {
+            compliant: "Un responsable identifié assure la gouvernance cyber. Assurez-vous que son périmètre est formalisé et que ses missions sont documentées.",
+            partial: "Un référent existe mais son rôle n'est pas formalisé. Il est nécessaire de définir clairement ses responsabilités et de les communiquer à l'ensemble des équipes.",
+            noncompliant: "Aucun responsable cyber identifié. C'est un risque majeur : en cas d'incident, personne ne sait quoi faire ni qui alerter. Désigner un référent est la première priorité."
+        }
+    },
+    {
+        id: "GouvOrg2",
+        domaine: "Gouvernance",
+        questionText: "Vos collaborateurs disposent-ils de règles écrites sur l’usage des outils informatiques ? ",
+        exampleText: "Exemple : Charte informatique, politique d'usage acceptable",
+        points: 6,
         recommandation: {
             compliant: "Un responsable identifié assure la gouvernance cyber. Assurez-vous que son périmètre est formalisé et que ses missions sont documentées.",
             partial: "Un référent existe mais son rôle n'est pas formalisé. Il est nécessaire de définir clairement ses responsabilités et de les communiquer à l'ensemble des équipes.",
@@ -14,9 +27,10 @@ const questions: Questions[] = [
     },
     {
         id: "Protec1",
-        domaine: "Protection des accès & données",
+        domaine: "Protection",
         questionText: "Les accès à vos outils et système sont-ils protégés par des mots de passe robustes et uniques ?",
         exampleText: "Exemple : Un gestionnaire de mots de passe, politique de complexité",
+        points: 7,
         recommandation: {
             compliant: "Bonne pratique en place. Vérifiez que l'ensemble des collaborateurs utilise effectivement un gestionnaire de mots de passe et que les renouvellements sont réguliers.",
             partial: "Des règles existent mais ne sont pas appliquées par tous. Un mot de passe faible ou réutilisé suffit pour qu'un attaquant compromette l'ensemble de vos accès.",
@@ -25,14 +39,20 @@ const questions: Questions[] = [
     }
 ]
 
-const DOMAINS_ORDER: Domaine[] = [
-    "Gourvernance & Organisation",
-    "Protection des accès & données",
-    "Sensibilisation & Comportements",
-    "Gestion des incidents & Continuité",
-    "Conformité & Protection des données personnelles"
+export const DOMAINS_ORDER: Domaine[] = [
+    "Gouvernance",
+    "Protection",
+    "Résilience",
+    "Sensibilisation",
+    "Conformité"
 ]
 
-export function getQuestionsByDomain(domaine: Domaine): Questions[] {
-    return questions.filter(q => q.domaine === domaine)
+export const ANSWERS: AnswerType[] = [
+    "compliant",
+    "partial",
+    "noncompliant",
+]
+
+export function getAnswerType(answer: number): AnswerType {
+    return ANSWERS[answer]
 }

@@ -49,11 +49,18 @@ body {
 }
 
 * {
-  transition-duration: 0.5s;
+  transition-duration: 0.8s;
   transition-property: all;
+  transition-delay: inherit;
 }
 
 button:not(:disabled),
 [role='button']:not(:disabled) {
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }

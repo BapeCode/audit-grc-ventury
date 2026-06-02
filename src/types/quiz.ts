@@ -1,21 +1,22 @@
-export type Domaine = "Gourvernance & Organisation" | "Protection des accès & données" | "Sensibilisation & Comportements" | "Gestion des incidents & Continuité" | "Conformité & Protection des données personnelles"
+export type Domaine = 'Gouvernance' | 'Protection' | 'Résilience' | 'Sensibilisation' | 'Conformité'
 
-type AnwserType = "compliant" | "partial" | "noncompliant"
+export type AnswerType = "compliant" | "partial" | "noncompliant"
 
 export interface Questions {
     id: string;
     domaine: Domaine;
     questionText: string;
     exampleText: string;
+    points: number;
     recommandation: Recommandation
 
 }
 
 export interface QuizState {
-    answers: Record<string, AnwserType>,
-    activeDomainIndex: number,
-    activeQuestionIndex: number,
-    showTransition: boolean
+    questionId: string;
+    domaine: Domaine;
+    answer: AnswerType;
+    points: number;
 }
 
 interface Recommandation {
