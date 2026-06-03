@@ -1,3 +1,4 @@
+"use client"
 interface QuizAnswerProps {
     onClick: (response: number) => void;
     currentAnswer: number | null;
@@ -31,17 +32,19 @@ export default function QuizAnswer({
             {Answer.map((key, index) => {
                 const isActive = key.value === currentAnswer;
                  return (
-                    <article key={index} onClick={() => onClick(key.value)} className={`flex items-center justify-start gap-2 border bg-slate-100 dark:bg-slate-800 rounded-xs px-4 py-6 w-full ${isActive ? "border-primary" : "border-slate-300 dark:border-slate-700"} cursor-pointer hover:bg-slate-100/50 dark:hover:bg-slate-800/50`}>
-                        {isActive ? (
-                            <div className="flex items-center justify-center h-5 w-5 border border-slate-300 dark:border-slate-700 rounded-full">
-                                <div className="h-2.5 w-2.5 rounded-full bg-primary/50"/>
-                            </div>
-                        ): (
-                            <div className="h-5 w-5 border border-slate-300 dark:border-slate-700 rounded-full"/>
-                        )}
-                        <div className="flex flex-col gap-2">
-                            <span className="text-xl font-normal text-slate-900 dark:text-slate-50">{key.title}</span>
-                            <p className="text-md font-light text-slate-600 dark:text-slate-400">{key.description}</p>
+                    <article 
+                        key={index}
+                        onClick={() => onClick(key.value)}
+                        className={`flex items-center gap-4 w-full text-left border rounded-xs px-4 py-3 cursor-pointer bg-surface hover:scale-[1.01] ${isActive ? "border-primary" : "border-border"}`}
+                    >
+                        <div className="flex-[0_0_auto] w-5 h-5 rounded-full flex items-center justify-center border border-border">
+                            {isActive && (
+                                <div className="h-2.5 w-2.5 rounded-full bg-primary"/>
+                            )}
+                        </div>
+                        <div className="flex-[1_1_auto] flex flex-col">
+                            <span className="text-sm md:text-lg font-normal text-text">{key.title}</span>
+                            <p className="text-xs md:text-md font-light text-text/50">{key.description}</p>
                         </div>
                     </article>
                 )

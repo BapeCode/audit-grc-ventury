@@ -4,41 +4,81 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --slate-50: #F5F7FA;
-  --slate-100: #E4E9F0;
-  --slate-200: #CCD5E1;
-  --slate-300: #AAB8CD;
-  --slate-400: #8399B4;
-  --slate-500: #627D9B;
-  --slate-600: #4C627D;
-  --slate-700: #3D4E63;
-  --slate-800: #24303F;
-  --slate-900: #141C26;
-  --slate-950: #0A0E14;
-
-  --sucess: #16a34a;
-  --warning: #d97706;
-  --danger: #dc2626;
-
-  --primary: #2A32FF;
+  --bg:            #F8F9FF;
+  --surface:       #FFFFFF;
+  --surface-2:     #FBFBFF;
+  --border:        rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --text:          #010424;
+  --text-soft:     rgba(1,4,36,0.72);
+  --muted:         rgba(0,0,0,0.45);
+  --muted-2:       rgba(0,0,0,0.30);
+  --primary:       #2A32FF;
+  --primary-deep:  #1F26D6;
+  --on-primary:    #FFFFFF;
+  --primary-tint:  rgba(42,50,255,0.06);
+  --primary-tint-2:rgba(42,50,255,0.10);
+  --track:         rgba(0,0,0,0.08);
+  --sucess:        rgb(22, 163, 74);
+  --warning:       rgb(217, 119, 6);
+  --danger:        rgb(220, 38, 38);
+  --red-tint:      rgba(229,72,77,0.10);
+  --ghost-hover:   rgba(0,0,0,0.035);
+  --radar-grid:    rgba(1,4,36,0.10);
+  --scrim:         rgba(12,14,28,0.42);
 
   --roboto: 'Roboto', sans-serif;
   --radius: 4px;
 }
 
+.dark {
+  --bg:            #0F1117;
+  --surface:       #1A1D2E;
+  --surface-2:     #1E2233;
+  --border:        rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.14);
+  --text:          #FFFFFF;
+  --text-soft:     rgba(255,255,255,0.78);
+  --muted:         rgba(255,255,255,0.40);
+  --muted-2:       rgba(255,255,255,0.26);
+  --primary:       #4C53FF;
+  --primary-deep:  #6066FF;
+  --on-primary:    #FFFFFF;
+  --primary-tint:  rgba(76,83,255,0.12);
+  --primary-tint-2:rgba(76,83,255,0.20);
+  --track:         rgba(255,255,255,0.08);
+  --sucess:        rgb(22, 163, 74);
+  --warning:       rgb(217, 119, 6);
+  --danger:        rgb(220, 38, 38);
+  --red-tint:      rgba(255,96,102,0.14);
+  --ghost-hover:   rgba(255,255,255,0.05);
+  --radar-grid:    rgba(255,255,255,0.10);
+  --scrim:         rgba(0,0,0,0.62);
+}
+
 @theme inline {
-  --color-slate-50: var(--slate-50);
-  --color-slate-100: var(--slate-100);
-  --color-slate-200: var(--slate-200);
-  --color-slate-300: var(--slate-300);
-  --color-slate-400: var(--slate-400);
-  --color-slate-500: var(--slate-500);
-  --color-slate-600: var(--slate-600);
-  --color-slate-700: var(--slate-700);
-  --color-slate-800: var(--slate-800);
-  --color-slate-900: var(--slate-900);
-  --color-slate-950: var(--slate-950);
-  --color-primary: #2A32FF;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-muted: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-soft);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-2);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-deep);
+  --color-on-primary: var(--on-primary);
+  --color-primary-tint: var(--primary-tint);
+  --color-primary-tint-foreground: var(--primary-tint-2);
+  --color-track: var(--track);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-danger-tint: var(--red-tint);
+  --color-ghost-hover: var(--ghost-hover);
+  --color-radar-grid: var(--radar-grid);
+  --color-scrim: var(--scrim)
 
   --font-roboto: var(--roboto);
   --radius-xs: var(--radius);

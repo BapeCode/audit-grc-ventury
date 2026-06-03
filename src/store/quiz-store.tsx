@@ -1,14 +1,21 @@
-import {createContext, ReactNode, use, useContext, useState} from "react";
+"use client";
+
+import {createContext, ReactNode, use, useContext, useEffect, useState} from "react";
 import {Domaine, Questions, QuizState} from "@/types/quiz";
-import {DOMAINS_ORDER, getAnswerType, getQuestionsByDomain, QuizManager} from "@/data/question";
-import {getQuestionByIndex} from "@/lib/quiz-utils";
+import {ANSWERS, DOMAINS_ORDER, getAnswerType, getQuestionsByDomain, QuizManager} from "@/data/quiz";
+import {getAllQuestion, getDomainFinish, getDomainFromIndex, getDomainProgress, getDomainState, getQuestionByIndex} from "@/lib/quiz-utils";
+import { useRouter } from "next/navigation";
 
 interface QuizContextType {
     domain: Domaine
-    stateQuestion: number
     currentQuestion: Questions
     currentAnswer: number | null
-    length: number
+    domainLength: number;
+    domainState: number;
+    maxIndex: number;
+    globalIndex: number;
+    domainFinish: Set<Domaine>
+    answers: QuizState[];
     setAnswer: (value: number) => void;
     next: () => void;
 }
@@ -16,56 +23,66 @@ interface QuizContextType {
 const QuizContext = createContext<QuizContextType | undefined>(undefined)
 
 function QuizProvider({children}: { children: ReactNode }) {
-    const [globalIndex, setGlobalIndex] = useState<number>(0)
-
-
-    const [domain, setDomain] = useState<Domaine>(DOMAINS_ORDER[0])
-    const [stateQuestion, setStateQuestion] = useState<number>(0)
+    const [globalIndex, setGlobalIndex] = useState<number>(0);
+    const [answers, setAnswers] = useState<QuizState[]>([])
     const [currentAnswer, setCurrentAnswer] = useState<number | null>(null)
-    const [anwser, setAnwser] = useState<QuizState[]>([])
+    const maxIndex = getAllQuestion().length
+    const currentQuestion = getQuestionByIndex(globalIndex); // questions actuel
+    const domain = getDomainFromIndex(globalIndex)
+    const domainFinish: Set<Domaine> = new Set()
+    const numberOfQuestionByDomain: Questions[] = getDomainProgress(globalIndex); // get le nombre de question trier par domaine
+    const domainLength = numberOfQuestionByDomain.length // taille des questions par domaine
+    const domainState = getDomainState(globalIndex)
 
-    const question = getQuestionByIndex(0)
-    const length = question.length
-    const currentQuestion = question[stateQuestion]
+    const router = useRouter()
+
+    DOMAINS_ORDER.forEach(d => {
+        if (getDomainFinish(d, globalIndex)) {
+            domainFinish.add(d)
+        }
+    })
 
     const setAnswer = (value: number) => {
         setCurrentAnswer(value)
-        if (currentAnswer === null) return;
-        setAnwser(prev => {
+        save()
+    }
+
+    const reset = () => {
+        setCurrentAnswer(null)
+    }
+
+    const save = () => {
+        setAnswers((prev) => {
             const newAnswer: QuizState = {
                 questionId: currentQuestion.id,
-                domaine: domain,
-                answer: getAnswerType(currentAnswer),
+                domaine: currentQuestion.domaine,
+                answer: ANSWERS[currentAnswer as number] || "noncompliant",
                 points: currentQuestion.points
             }
             return [...prev, newAnswer]
         })
     }
 
-    const reset = (value: number) => {
-        setStateQuestion(value)
-        setCurrentAnswer(null)
-    }
-
     const next = () => {
-        if (stateQuestion + 1 < length) {
-            reset(stateQuestion + 1)
-        } else {
-            const currentDomainIndex = DOMAINS_ORDER.indexOf(domain)
-            const nextDomainIndex = currentDomainIndex + 1
-            if (nextDomainIndex >= DOMAINS_ORDER.length) return console.log("On a fini !")
-            setDomain(DOMAINS_ORDER[nextDomainIndex])
-            reset(0)
+        if (globalIndex === maxIndex - 1) {
+            localStorage.setItem("answers", JSON.stringify(answers))
+            router.push("/result")
         }
+        setGlobalIndex(globalIndex + 1)
+        reset()
     }
 
     return (
         <QuizContext.Provider value={{
             domain,
-            stateQuestion,
+            domainState,
+            domainFinish,
+            domainLength,
             currentQuestion,
             currentAnswer,
-            length,
+            maxIndex,
+            globalIndex,
+            answers,
             setAnswer,
             next
         }}>

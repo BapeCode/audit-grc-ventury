@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/layout/loading";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 
 type Theme = 'light' | 'dark';
@@ -17,7 +18,7 @@ function ThemeProvider({
     children
 }: {children: ReactNode}) {
     const [theme, setTheme] = useState<Theme>("light");
-    const [mounted, setMounted] = useState<boolean>(true);
+    const [mounted, setMounted] = useState<boolean>(false);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme") as Theme | null;
@@ -25,6 +26,7 @@ function ThemeProvider({
         const initialTheme: Theme = savedTheme || (prefersDark ? "dark" : "light")
 
         setTheme(initialTheme);
+
         document.documentElement.classList.toggle("dark", initialTheme === "dark");
         setMounted(true);
     }, []);
@@ -40,7 +42,7 @@ function ThemeProvider({
 
     return (
         <ThemeContext.Provider value={{ theme, isDark, mounted, toggleTheme }}>
-            {children}
+            {mounted ? children : <Loading/>}
         </ThemeContext.Provider>
     );
 }

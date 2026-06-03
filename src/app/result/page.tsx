@@ -3,7 +3,7 @@
 import {ThemeProvider} from "@/store/theme-store";
 import Headers from "@/components/layout/header-section";
 import {QuizProvider} from "@/store/quiz-store";
-import QuizIndex from "@/components/quiz/quiz-index";
+import ResultIndex from "@/components/result/result-index";
 
 export default function Page() {
     return (
@@ -12,7 +12,7 @@ export default function Page() {
                 <Headers/>
                 <section className="md:max-w-5xl md:mx-auto w-full py-8 px-6 md:px-0">
                     <QuizProvider>
-                        <QuizIndex/>
+                        <ResultIndex/>
                     </QuizProvider>
                 </section>
             </main>

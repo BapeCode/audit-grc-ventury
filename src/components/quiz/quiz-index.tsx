@@ -1,31 +1,30 @@
+"use client"
+
 import QuizProgress from "@/components/quiz/quiz-progress";
 import QuizDomain from "@/components/quiz/quiz-domain";
-import {DOMAINS_ORDER} from "@/data/question";
+import {DOMAINS_ORDER} from "@/data/quiz";
 import QuizQuestion from "@/components/quiz/quiz-question";
 import QuizAnswer from "@/components/quiz/quiz-answer";
 import QuizFooter from "@/components/quiz/quiz-footer";
 import {useQuiz} from "@/store/quiz-store";
-import {Loader} from "lucide-react";
+import Loading from "../layout/loading";
 
 export default function QuizIndex() {
-    const { domain, stateQuestion, currentQuestion, currentAnswer, length, setAnswer, next } = useQuiz()
+    const { domain, domainState, domainLength, domainFinish, currentQuestion, currentAnswer, globalIndex, maxIndex, setAnswer, next } = useQuiz()
 
     if (!currentQuestion) {
         return (
-            <div className="h-full flex items-center justify-center gap-2">
-                <p className="text-slate-950 dark:text-slate-50 font-medium text-2xl ">Chargement...</p>
-                <Loader className="animate-spin h-10 w-10 text-slate-950 dark:text-slate-50"/>
-            </div>
+            <Loading/>
         )
     }
 
     return (
         <>
-            <QuizProgress progress={stateQuestion}/>
-            <QuizDomain domains={DOMAINS_ORDER} domainActive={domain} lengthNumber={length} questionNumber={stateQuestion}/>
+            <QuizProgress maxIndex={maxIndex} globalIndex={globalIndex}/>
+            <QuizDomain domainFinish={domainFinish} domains={DOMAINS_ORDER} domainActive={domain} lengthNumber={domainLength} questionNumber={domainState}/>
             <QuizQuestion question={currentQuestion.questionText} example={currentQuestion.exampleText}/>
             <QuizAnswer onClick={setAnswer} currentAnswer={currentAnswer}/>
-            <QuizFooter currentAnswer={currentAnswer} isFirst={stateQuestion === 0} next={next}/>
+            <QuizFooter isLast={globalIndex === maxIndex - 1} currentAnswer={currentAnswer} isFirst={globalIndex === 0} next={next}/>
         </>
     )
 }

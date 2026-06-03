@@ -1,5 +1,4 @@
-import {JSX} from "react";
-
+"use client"
 interface QuizQuestionProps {
     question: string;
     example: string;
@@ -11,8 +10,8 @@ export default function QuizQuestion({
 }: QuizQuestionProps) {
     return (
         <section className="flex flex-col w-full items-start py-3 gap-2">
-            <h1 className="text-4xl font-normal text-slate-900 dark:text-slate-50">{question}</h1>
-            <p className="text-sm font-normal text-slate-400 dark:text-slate-600">{example}</p>
+            <h1 className="text-lg md:text-4xl font-normal text-text">{question}</h1>
+            <p className="text-xs font-normal text-text/50 ">{example}</p>
         </section>
     )
 }

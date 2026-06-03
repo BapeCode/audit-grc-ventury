@@ -7,7 +7,7 @@ import StartingSection from "@/components/ui/starting-section";
 export default function Home() {
   return (
     <ThemeProvider>
-        <main className="flex flex-col flex-1 bg-slate-50 font-sans dark:bg-slate-900">
+        <main className="flex flex-col flex-1 bg-bg font-sans">
             <Headers/>
             <StartingSection/>
         </main>

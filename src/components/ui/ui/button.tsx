@@ -8,8 +8,8 @@ interface ButtonProps extends React.ComponentProps<"button"> {
 }
 
 const variants = {
-    'primary': 'flex items-center justify-center w-full px-4 py-2 gap-2 bg-slate-900 dark:bg-slate-50 text-slate-50 dark:text-slate-950 rounded-xs hover:bg-slate-900/80 dark:hover:bg-slate-50/80 uppercase font-medium text-sm cursor-pointer',
-    'secondary': '',
+    'primary': 'flex items-center justify-center w-full px-4 py-2 gap-2 bg-primary text-white rounded-xs hover:bg-primary/80 uppercase font-semibold text-xs md:text-sm',
+    'secondary': 'flex items-center justify-center w-full px-4 py-2 gap-2 bg-text text-bg rounded-xs hover:bg-text/80 uppercase font-semibold text-xs md:text-sm',
     'ghost': 'ghost',
 }
 
