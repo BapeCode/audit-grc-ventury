@@ -9,7 +9,6 @@ export interface Questions {
     exampleText: string;
     points: number;
     recommandation: Recommandation
-
 }
 
 export interface QuizState {
@@ -17,6 +16,7 @@ export interface QuizState {
     domaine: Domaine;
     answer: AnswerType;
     points: number;
+    recommandation: string;
 }
 
 interface Recommandation {

@@ -10,7 +10,7 @@ import {useQuiz} from "@/store/quiz-store";
 import Loading from "../layout/loading";
 
 export default function QuizIndex() {
-    const { domain, domainState, domainLength, domainFinish, currentQuestion, currentAnswer, globalIndex, maxIndex, setAnswer, next } = useQuiz()
+    const { domain, domainState, domainLength, domainFinish, currentQuestion, currentAnswer, globalIndex, maxIndex, setAnswer, next, prev } = useQuiz()
 
     if (!currentQuestion) {
         return (
@@ -24,7 +24,7 @@ export default function QuizIndex() {
             <QuizDomain domainFinish={domainFinish} domains={DOMAINS_ORDER} domainActive={domain} lengthNumber={domainLength} questionNumber={domainState}/>
             <QuizQuestion question={currentQuestion.questionText} example={currentQuestion.exampleText}/>
             <QuizAnswer onClick={setAnswer} currentAnswer={currentAnswer}/>
-            <QuizFooter isLast={globalIndex === maxIndex - 1} currentAnswer={currentAnswer} isFirst={globalIndex === 0} next={next}/>
+            <QuizFooter isLast={globalIndex === maxIndex - 1} currentAnswer={currentAnswer} isFirst={globalIndex === 0} prev={prev} next={next}/>
         </>
     )
 }

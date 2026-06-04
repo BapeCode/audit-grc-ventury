@@ -3,7 +3,7 @@
 import { QuizState } from "@/types/quiz";
 
 export default function ResultIndex() {
-    const answers: QuizState[] = localStorage.getItem("answers") ? JSON.parse(localStorage.getItem("answers")) : []
+    const answers: QuizState[] = localStorage.getItem("answers") ? JSON.parse(localStorage.getItem("answers") || "") : []
     const TOTAL_POINTS = answers.reduce((sum, v) => sum + v.points, 0)
 
     return (
@@ -14,6 +14,7 @@ export default function ResultIndex() {
                     <p>Points : {v.points}pts</p>
                     <p>Domaine : {v.domaine}</p>
                     <p>Réponse : {v.answer}</p>
+                    <p>Recommandation : {v.recommandation}</p>
                 </div>
             ))}
 

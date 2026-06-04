@@ -47,12 +47,8 @@ export const DOMAINS_ORDER: Domaine[] = [
     "Conformité"
 ]
 
-export const ANSWERS: AnswerType[] = [
-    "compliant",
-    "partial",
-    "noncompliant",
-]
-
-export function getAnswerType(answer: number): AnswerType {
-    return ANSWERS[answer]
+export const POINTS_MAP = {
+    compliant: 1,
+    partial: 0.5,
+    noncompliant: 0
 }

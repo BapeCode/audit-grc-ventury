@@ -1,22 +1,31 @@
 "use client"
+
+import { AnswerType } from "@/types/quiz";
+
 interface QuizAnswerProps {
-    onClick: (response: number) => void;
-    currentAnswer: number | null;
+    onClick: (response: AnswerType) => void;
+    currentAnswer: AnswerType | null;
 }
 
-const Answer = [
+interface AnswerProps {
+    value: AnswerType;
+    title: string;
+    description: string;
+}
+
+const Answer: AnswerProps[] = [
     {
-        value: 0,
+        value: "compliant",
         title: "Conforme et documenté",
         description: "La règle ou mesure est officiellement formalisée, communiquée et auditée régulièrement."
     },
     {
-        value: 1,
+        value: "partial",
         title: "Partiellement mis en oeuvre",
         description: "Certaines pratiques existent mais ne sont ni formalisées, ni appliquées de manière systématique"
     },
     {
-        value: 2,
+        value: "noncompliant",
         title: "Non initié ou inexistant",
         description: "Aucune démarche n'a été entamée sur ce point à l'heure actuelle"
     },
