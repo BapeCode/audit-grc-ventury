@@ -1,0 +1,34 @@
+"use client";
+
+import {Star} from "lucide-react";
+import {ResultNotationProps} from "@/types/props.type";
+
+
+export default function ResultNotation({
+    totalPoints,
+    userPoints,
+    maturity,
+}: ResultNotationProps) {
+    return (
+        <section className="flex flex-col items-start gap-4 rounded-xs bg-surface border-border border px-6 py-4">
+            <p className="uppercase text-text/50 font-medium text-sm">Maturité globale</p>
+
+            <h2 className="text-text font-bold text-6xl">
+                {userPoints}
+                <span className="text-text/50 font-light text-sm">/{totalPoints}</span>
+            </h2>
+
+            <div className="flex items-center gap-2">
+                {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`h-6 w-6 stroke-1 ${i + 1 <= maturity.stars ? "text-primary fill-primary" : "text-text/50"}`}/>
+                ))}
+            </div>
+
+            <div className="flex items-center justify-center px-4 py-0.5 border border-primary rounded-full">
+                <p className="uppercase font-medium text-sm text-primary">Niveau : {maturity.badge}</p>
+            </div>
+
+            <p className="text-text/50 font-medium text-sm">{maturity.description}</p>
+        </section>
+    )
+}

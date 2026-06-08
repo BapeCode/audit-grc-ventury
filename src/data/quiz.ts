@@ -1,4 +1,4 @@
-import {AnswerType, Domaine, Questions} from "@/types/quiz";
+import {AnswerConfig, AnswerType, MaturityLevel, Questions} from "@/types/quiz";
 
 export const questions: Questions[] = [
     {
@@ -39,16 +39,70 @@ export const questions: Questions[] = [
     }
 ]
 
-export const DOMAINS_ORDER: Domaine[] = [
+export const DOMAINS_ORDER = [
     "Gouvernance",
     "Protection",
     "Résilience",
     "Sensibilisation",
     "Conformité"
-]
+] as const;
+
+export const ANSWER_CONFIG: Record<AnswerType, AnswerConfig> = {
+    compliant: {
+        label: "Conforme",
+        className: "bg-success/20 text-success"
+    },
+    partial: {
+        label: "Majeur",
+        className: "bg-warning/20 text-warning"
+    },
+    noncompliant: {
+        label: "Critique",
+        className: "bg-danger/20 text-danger"
+    }
+}
 
 export const POINTS_MAP = {
     compliant: 1,
     partial: 0.5,
     noncompliant: 0
 }
+
+export const MATURITY_LEVEL: MaturityLevel[] = [
+    {
+        percentage: 0,
+        badge: "Non engagé",
+        description: "Les premières briques existent mais la cybersécurité n'est pas encore pilotée de manière structurée. L'exposition aux risques reste élevée et des actions prioritaires s'imposent rapidement.",
+        stars: 0
+    },
+    {
+        percentage: 20,
+        badge: "Initial",
+        description: "Les fondations sont à poser. Quelques mesures isolées existent, mais la sécurité n'est pas encore pilotée de manière structurée.",
+        stars: 1
+    },
+    {
+        percentage: 40,
+        badge: "En cours de définition",
+        description: "Vous posez des bases concrètes. Plusieurs pratiques sont engagées ; il reste à les formaliser et à les généraliser.",
+        stars: 2
+    },
+    {
+        percentage: 60,
+        badge: "Défini",
+        description: "Vos pratiques sont documentées et répétables. L'enjeu est désormais de mesurer leur efficacité et de combler les écarts résiduels.",
+        stars: 3
+    },
+    {
+        percentage: 80,
+        badge: "Maitrisé",
+        description: "Votre posture de sécurité est solide et piloté. Concentrez-vous sur l'amélioration continue et l'anticipation des menaces.",
+        stars: 4
+    },
+    {
+        percentage: 100,
+        badge: "Optimisé",
+        description: "Excellente maturité. La sécurité est intégrée à la culture et aux processus ; maintenez ce niveau par une veille active.",
+        stars: 5
+    },
+]

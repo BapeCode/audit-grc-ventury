@@ -1,8 +1,6 @@
 "use client"
-interface QuizQuestionProps {
-    question: string;
-    example: string;
-}
+
+import {QuizQuestionProps} from "@/types/props.type";
 
 export default function QuizQuestion({
     question,

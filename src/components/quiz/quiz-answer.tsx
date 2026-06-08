@@ -1,35 +1,7 @@
 "use client"
 
-import { AnswerType } from "@/types/quiz";
-
-interface QuizAnswerProps {
-    onClick: (response: AnswerType) => void;
-    currentAnswer: AnswerType | null;
-}
-
-interface AnswerProps {
-    value: AnswerType;
-    title: string;
-    description: string;
-}
-
-const Answer: AnswerProps[] = [
-    {
-        value: "compliant",
-        title: "Conforme et documenté",
-        description: "La règle ou mesure est officiellement formalisée, communiquée et auditée régulièrement."
-    },
-    {
-        value: "partial",
-        title: "Partiellement mis en oeuvre",
-        description: "Certaines pratiques existent mais ne sont ni formalisées, ni appliquées de manière systématique"
-    },
-    {
-        value: "noncompliant",
-        title: "Non initié ou inexistant",
-        description: "Aucune démarche n'a été entamée sur ce point à l'heure actuelle"
-    },
-]
+import {QuizAnswerProps} from "@/types/props.type";
+import {ANSWER} from "@/data/answer.data";
 
 export default function QuizAnswer({
     onClick,
@@ -38,7 +10,7 @@ export default function QuizAnswer({
 
     return (
         <section className="flex flex-col items-center gap-2">
-            {Answer.map((key, index) => {
+            {ANSWER.map((key, index) => {
                 const isActive = key.value === currentAnswer;
                  return (
                     <article 

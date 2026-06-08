@@ -1,45 +1,34 @@
 "use client";
 
 import {createContext, ReactNode, useContext, useState} from "react";
-import {AnswerType, Domaine, Questions, QuizState} from "@/types/quiz";
-import {DOMAINS_ORDER, POINTS_MAP} from "@/data/quiz";
-import {getAllQuestion, getDomainFinish, getDomainFromIndex, getDomainProgress, getDomainState, getQuestionByIndex} from "@/lib/quiz-utils";
 import { useRouter } from "next/navigation";
+import {QuizContextProps} from "@/types/props.type";
+import {getAllQuestion, getQuestionByIndex} from "@/lib/questions.utils";
+import {getDomainFinish, getDomainFromIndex, getDomainProgress, getDomainState} from "@/lib/domain.utils";
+import {AnswerState, AnswerType} from "@/types/answer.type";
+import {Domain} from "@/types/domain.type";
+import {Questions} from "@/types/questions.type";
+import {DOMAINS} from "@/data/domain.data";
+import {ANSWER_POINTS} from "@/data/answer.data";
 
-interface QuizContextType {
-    domain: Domaine
-    currentQuestion: Questions
-    currentAnswer: AnswerType | null
-    domainLength: number;
-    domainState: number;
-    maxIndex: number;
-    globalIndex: number;
-    domainFinish: Set<Domaine>
-    answers: QuizState[];
-    setAnswer: (value: AnswerType) => void;
-    next: () => void;
-    prev: () => void;
-}
-
-const QuizContext = createContext<QuizContextType | undefined>(undefined)
+const QuizContext = createContext<QuizContextProps | undefined>(undefined)
 
 function QuizProvider({children}: { children: ReactNode }) {
     const [globalIndex, setGlobalIndex] = useState<number>(0);
-    const [answers, setAnswers] = useState<QuizState[]>([])
+    const [answers, setAnswers] = useState<AnswerState[]>([])
     const [currentAnswer, setCurrentAnswer] = useState<AnswerType | null>(null)
-    const maxIndex = getAllQuestion().length
-    const currentQuestion = getQuestionByIndex(globalIndex); // questions actuel
-    const domain = getDomainFromIndex(globalIndex)
-    const domainFinish: Set<Domaine> = new Set()
-    const numberOfQuestionByDomain: Questions[] = getDomainProgress(globalIndex); // get le nombre de question trier par domaine
-    const domainLength = numberOfQuestionByDomain.length // taille des questions par domaine
-    const domainState = getDomainState(globalIndex)
+    const currentQuestion: Questions = getQuestionByIndex(globalIndex);
+    const currentDomain: Domain = getDomainFromIndex(globalIndex);
+    const domainQuestionLength: number = getDomainProgress(globalIndex).length;
+    const domainState: number = getDomainState(globalIndex);
+    const maxQuestions: number = getAllQuestion().length;
+    const domainFinished: Set<Domain> = new Set<Domain>()
 
     const router = useRouter()
 
-    DOMAINS_ORDER.forEach(d => {
+    DOMAINS.forEach(d => {
         if (getDomainFinish(d, globalIndex)) {
-            domainFinish.add(d)
+            domainFinished.add(d)
         }
     })
 
@@ -48,18 +37,15 @@ function QuizProvider({children}: { children: ReactNode }) {
         save(value)
     }
 
-    const reset = () => {
-        setCurrentAnswer(null)
-    }
-
     const save = (answer: AnswerType) => {
         setAnswers((prev) => {
             const newAnswer = {
                 questionId: currentQuestion.id,
-                domaine: currentQuestion.domaine,
+                domain: currentQuestion.domain,
                 answer: answer,
-                points: currentQuestion.points * POINTS_MAP[answer],
-                recommandation: currentQuestion.recommandation[answer]
+                points: currentQuestion.points * ANSWER_POINTS[answer],
+                recommandation: currentQuestion.action[answer],
+                criticality: currentQuestion.criticality,
             };
             const existingAnswerIndex = prev.findIndex(v => v?.questionId === currentQuestion.id);
 
@@ -78,31 +64,34 @@ function QuizProvider({children}: { children: ReactNode }) {
     }
 
     const next = () => {
-        if (globalIndex === maxIndex - 1) {
+        if (globalIndex === maxQuestions - 1) {
             localStorage.setItem("answers", JSON.stringify(answers))
             router.push("/result")
+            return
         }
+        const nextQuestion = getQuestionByIndex(globalIndex + 1)
+        const nextAnswer = answers.find(a => a.questionId === nextQuestion.id)
+        setCurrentAnswer(nextAnswer?.answer || null)
         setGlobalIndex(globalIndex + 1)
-        reset()
     }
 
     const prev = () => {
-        if (globalIndex - 1 < 0) {
-            return
-        }
+        if (globalIndex - 1 < 0) return
+        const prevQuestion = getQuestionByIndex(globalIndex - 1)
+        const prevAnswer = answers.find(a => a.questionId === prevQuestion.id)
+        setCurrentAnswer(prevAnswer?.answer || null)
         setGlobalIndex(globalIndex - 1)
-        reset()
     }
 
     return (
         <QuizContext.Provider value={{
-            domain,
+            currentDomain,
             domainState,
-            domainFinish,
-            domainLength,
+            domainFinished,
+            domainQuestionLength,
             currentQuestion,
             currentAnswer,
-            maxIndex,
+            maxQuestions,
             globalIndex,
             answers,
             setAnswer,

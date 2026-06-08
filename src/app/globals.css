@@ -19,7 +19,7 @@
   --primary-tint:  rgba(42,50,255,0.06);
   --primary-tint-2:rgba(42,50,255,0.10);
   --track:         rgba(0,0,0,0.08);
-  --sucess:        rgb(22, 163, 74);
+  --success:        rgb(22, 163, 74);
   --warning:       rgb(217, 119, 6);
   --danger:        rgb(220, 38, 38);
   --red-tint:      rgba(229,72,77,0.10);
@@ -47,7 +47,7 @@
   --primary-tint:  rgba(76,83,255,0.12);
   --primary-tint-2:rgba(76,83,255,0.20);
   --track:         rgba(255,255,255,0.08);
-  --sucess:        rgb(22, 163, 74);
+  --success:        rgb(22, 163, 74);
   --warning:       rgb(217, 119, 6);
   --danger:        rgb(220, 38, 38);
   --red-tint:      rgba(255,96,102,0.14);
@@ -78,18 +78,21 @@
   --color-danger-tint: var(--red-tint);
   --color-ghost-hover: var(--ghost-hover);
   --color-radar-grid: var(--radar-grid);
-  --color-scrim: var(--scrim)
+  --color-scrim: var(--scrim);
 
   --font-roboto: var(--roboto);
   --radius-xs: var(--radius);
+
+  --animate-translate: translate 0.5s ease-out;
 }
 
 body {
   font-family: var(--roboto), sans-serif;
+  background: var(--bg);
 }
 
 * {
-  transition-duration: 0.8s;
+  transition-duration: 1s;
   transition-property: all;
   transition-delay: inherit;
 }
@@ -103,4 +106,16 @@ button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+
+@keyframes translate {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

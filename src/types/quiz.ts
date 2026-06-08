@@ -1,4 +1,6 @@
-export type Domaine = 'Gouvernance' | 'Protection' | 'Résilience' | 'Sensibilisation' | 'Conformité'
+import {DOMAINS_ORDER} from "@/data/quiz";
+
+export type Domaine = keyof typeof DOMAINS_ORDER[number]
 
 export type AnswerType = "compliant" | "partial" | "noncompliant"
 
@@ -19,8 +21,20 @@ export interface QuizState {
     recommandation: string;
 }
 
-interface Recommandation {
+export interface Recommandation {
     compliant: string;
     partial: string;
     noncompliant: string;
+}
+
+export interface AnswerConfig {
+    label: string;
+    className: string;
+}
+
+export interface MaturityLevel {
+    percentage: number;
+    badge: string;
+    description: string;
+    stars: number;
 }

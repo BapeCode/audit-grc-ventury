@@ -1,4 +1,4 @@
-import {DOMAINS_ORDER, questions} from "@/data/quiz";
+import {DOMAINS_ORDER, MATURITY_LEVEL, questions} from "@/data/quiz";
 import {Domaine, Questions} from "@/types/quiz";
 
 function getAllQuestion(): Questions[] {
@@ -35,6 +35,16 @@ function isLastQuestion(index: number) {
     return questions.length - 1 === index;
 }
 
+function getTotalPoints(): number {
+    return questions.reduce((sum, v) => sum + v.points, 0)
+}
+
+function getMaturityLevel(percentage: number) {
+    return MATURITY_LEVEL.find(v => {
+        return v.percentage >= percentage
+    })
+}
+
 export {
     getQuestionByIndex,
     getDomainFromIndex,
@@ -42,5 +52,7 @@ export {
     getDomainProgress,
     getAllQuestion,
     getDomainState,
-    getDomainFinish
+    getDomainFinish,
+    getTotalPoints,
+    getMaturityLevel
 }

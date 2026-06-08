@@ -1,18 +1,31 @@
+"use client";
+
 import { Loader } from "lucide-react";
 import Link from "next/link";
 import Button from "../ui/ui/button";
+import Image from "next/image";
+import {useTheme} from "@/store/theme-store";
+import Skeleton from "@/components/ui/ui/skeleton";
 
 export default function Loading() {
     return (
-        <div className="flex flex-col items-center justify-center gap-4 px-6 py-8">
-            <Loader className="animate-spin h-20 w-20 text-primary"/>
-            <h1 className="text-text text-2xl text-center font-semibold">Le quiz est en cours de chargement...</h1>
-            <p className="text-text/50 font-medium text-sm text-center">Si le chargement est infini, merci de prévenir l&apos;administrateur du site...</p>
-            <Link href={"/"}>
-                <Button variant="secondary">
-                    Retour à l&apos;accueil
-                </Button>
-            </Link>
+        <div className="flex flex-col gap-4 w-full md:max-w-5xl mx-auto">
+            <Skeleton/>
+
+            <div className="flex gap-2">
+                {[...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="flex-1 h-2"/>
+                ))}
+            </div>
+
+            <div className="flex flex-col gap-2 mt-4">
+                <Skeleton className="h-8 w-3/4"/>
+                <Skeleton className="h-4 w-1/2"/>
+            </div>
+
+            {[...Array(3)].map((_, i) => (
+                <Skeleton key={i} className="h-16"/>
+            ))}
         </div>
     )
 }
