@@ -108,6 +108,16 @@ button:disabled {
   pointer-events: none;
 }
 
+.recharts-wrapper svg:focus,
+.recharts-wrapper svg,
+.recharts-wrapper:focus,
+.recharts-pie:focus,
+.recharts-sector:focus,
+.recharts-bar-rectangle:focus,
+.recharts-rectangle:focus
+{
+  outline: none !important;
+}
 
 @keyframes translate {
   0% {

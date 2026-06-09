@@ -1,11 +1,5 @@
-import React from "react";
 import {cn} from "@/lib/utils";
-
-interface ButtonProps extends React.ComponentProps<"button"> {
-    children: React.ReactNode;
-    variant: 'primary' | 'secondary' | 'ghost';
-    className?: string;
-}
+import {ButtonProps} from "@/types/props.type";
 
 const variants = {
     'primary': 'flex items-center justify-center w-full px-4 py-2 gap-2 bg-primary text-white rounded-xs hover:bg-primary/80 uppercase font-semibold text-xs md:text-sm',

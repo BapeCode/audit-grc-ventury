@@ -2,6 +2,8 @@ import {Domain} from "@/types/domain.type";
 import {Questions} from "@/types/questions.type";
 import {AnswerState, AnswerType} from "@/types/answer.type";
 import {MaturityLevel} from "@/types/result.type";
+import React, {ReactNode} from "react";
+import Summary from "@/components/pdf/pages/summary";
 
 
 // Quiz
@@ -53,12 +55,7 @@ interface QuizAnswerProps {
     currentAnswer: AnswerType | null;
 }
 
-// Skeleton
-interface SkeletonProps {
-    className?: string;
-}
-
-// Resultat
+// Result
 
 interface ResultNotationProps {
     totalPoints: number;
@@ -77,6 +74,75 @@ interface ResultCardProps {
     domainWeak: Domain
 }
 
+interface CalculateProps {
+    score: number;
+    domain: Domain;
+    maxScore: number;
+}
+
+interface ResultDomainProps {
+    scoreByDomain: CalculateProps[];
+}
+
+interface ResultRadarProps {
+    data: CalculateProps[];
+}
+
+interface ResultPieData {
+    answer: string;
+    amount: number;
+    fill: string;
+}
+
+interface ResultPieProps {
+    data: ResultPieData[]
+}
+
+interface ResultBarData {
+    effort: string;
+    count: number;
+}
+
+interface ResultBarProps {
+    data: ResultBarData[]
+}
+
+// UI / Components
+interface SkeletonProps {
+    className?: string;
+}
+
+interface ButtonProps extends React.ComponentProps<"button"> {
+    children: React.ReactNode;
+    variant: 'primary' | 'secondary' | 'ghost';
+    className?: string;
+}
+
+interface CardsProps {
+    children: ReactNode;
+    className?: string;
+    title?: string;
+}
+
+// PDF
+interface CoverProps {
+    company: string;
+    date: string
+}
+
+interface SummaryProps {
+    score: number;
+    maxScore: number;
+    level: string;
+    description: string;
+    conformity: number;
+    critical: number;
+    domainStrong: Domain;
+    domainWeak: Domain;
+    radar: string;
+    pie: string
+}
+
 export type {
     QuizContextProps,
     AnswerProps,
@@ -84,8 +150,22 @@ export type {
     QuizDomainProps,
     QuizQuestionProps,
     QuizFooterProps,
-    SkeletonProps,
+
     ResultNotationProps,
     ResultRecommandationProps,
-    ResultCardProps
+    ResultCardProps,
+    CalculateProps,
+    ResultDomainProps,
+    ResultRadarProps,
+    ResultPieData,
+    ResultPieProps,
+    ResultBarData,
+    ResultBarProps,
+
+    SkeletonProps,
+    ButtonProps,
+    CardsProps,
+
+    CoverProps,
+    SummaryProps
 }

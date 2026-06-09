@@ -1,5 +1,6 @@
 import {AnswerConfig, AnswerType} from "@/types/answer.type";
 import {AnswerProps} from "@/types/props.type";
+import {Criticality, EffortLevel} from "@/types/questions.type";
 
 const ANSWER_CONFIG: Record<AnswerType, AnswerConfig> = {
     compliant: {
@@ -40,9 +41,36 @@ const ANSWER: AnswerProps[] = [
     },
 ]
 
+const ANSWER_COLOR: Record<AnswerType, string> = {
+    compliant: "rgb(34 197 94 / 0.6)",
+    partial: "rgb(245 158 11 / 0.6)",
+    noncompliant: "rgb(239 68 68 / 0.6)"
+}
+
+const CRITICAL: Record<Criticality, string> = {
+    high: "Haute",
+    mid: "Moyen",
+    low: "Faible"
+}
+
+const EFFORT: Record<EffortLevel, string> = {
+    high: "Élevé",
+    mid: "Modéré",
+    low: "Faible"
+}
+
+const EFFORT_COLOR: Record<EffortLevel, string> = {
+    high: "rgb(239 68 68 / 0.6)",
+    mid: "rgb(245 158 11 / 0.6)",
+    low: "rgb(34 197 94 / 0.6)"
+}
 
 export {
     ANSWER_CONFIG,
     ANSWER_POINTS,
-    ANSWER
+    ANSWER,
+    ANSWER_COLOR,
+    CRITICAL,
+    EFFORT,
+    EFFORT_COLOR
 }

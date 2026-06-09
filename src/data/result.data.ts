@@ -1,5 +1,4 @@
 import {MaturityLevel} from "@/types/result.type";
-import {Criticality, EffortLevel} from "@/types/questions.type";
 
 const MATURITY: MaturityLevel[] = [
     {
@@ -40,20 +39,6 @@ const MATURITY: MaturityLevel[] = [
     },
 ]
 
-const CRITICAL: Record<Criticality, string> = {
-    high: "Haute",
-    mid: "Moyen",
-    low: "Faible"
-}
-
-const EFFORT: Record<EffortLevel, string> = {
-    high: "Élevé",
-    mid: "Moyen",
-    low: "Faible"
-}
-
 export {
     MATURITY,
-    CRITICAL,
-    EFFORT
 }

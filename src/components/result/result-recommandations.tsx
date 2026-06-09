@@ -1,9 +1,10 @@
 "use client";
 
 import {TriangleAlert} from "lucide-react";
-import {CRITICAL, EFFORT} from "@/data/result.data";
+import {CRITICAL, EFFORT} from "@/data/answer.data";
 import {ANSWER_CONFIG} from "@/data/answer.data";
 import {ResultRecommandationProps} from "@/types/props.type";
+import Cards from "@/components/ui/ui/card";
 
 
 export default function ResultRecommandation({
@@ -11,9 +12,7 @@ export default function ResultRecommandation({
 }: ResultRecommandationProps) {
 
     return (
-        <section className="flex flex-col items-start gap-4 rounded-xs bg-surface border-border border px-6 py-4">
-            <p className="uppercase text-text/50 font-medium text-sm">Plan d&apos;action prioritaire (personnalisé)</p>
-
+        <Cards title="Plan d'action prioritaire (personnalisé)">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                 {answer.map((item, index) => {
                     const config = ANSWER_CONFIG[item.answer];
@@ -37,6 +36,6 @@ export default function ResultRecommandation({
                 })}
             </div>
 
-        </section>
+        </Cards>
     )
 }

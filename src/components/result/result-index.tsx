@@ -9,13 +9,18 @@ import Container from "@/components/layout/container";
 import {AnswerState} from "@/types/answer.type";
 import {getMaxPoints} from "@/lib/questions.utils";
 import {
+    calculatePointByDomain,
     getConformity,
     getCriticalPoints,
     getDomainStrong,
-    getDomainWeakness,
-    getMaturityLevel
+    getDomainWeakness, getEffortRepartition,
+    getMaturityLevel, getResponseRepartition
 } from "@/lib/result.utils";
 import ResultCard from "@/components/result/result-card";
+import ResultDomain from "@/components/result/result-domain";
+import ResultRadar from "@/components/result/result-radar";
+import ResultPie from "@/components/result/result-pie";
+import ResultBar from "@/components/result/result-bar";
 
 export default function ResultIndex() {
     const [answers, setAnswers] = useState<AnswerState[]>([])
@@ -38,8 +43,11 @@ export default function ResultIndex() {
     const conformityPercentage = getConformity(answers)
     const criticalPoints = getCriticalPoints(answers);
     const domainStrong = getDomainStrong(answers);
-    const domainWeak = getDomainWeakness(answers)
+    const domainWeak = getDomainWeakness(answers);
+    const scoreByDomain = calculatePointByDomain(answers);
 
+    const responseRepartition = getResponseRepartition(answers)
+    const effortRepartition = getEffortRepartition(answers);
 
     if (!LEVELS) return <Loading/>
 
@@ -47,26 +55,22 @@ export default function ResultIndex() {
         <>
            <div className="flex flex-col flex-1">
                <Container className="flex flex-col gap-6 flex-1">
-                   <div className="grid grid-cols-1 md:grid-cols-3">
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                        <ResultNotation totalPoints={TOTAL_POINTS} userPoints={USER_POINTS} maturity={LEVELS}/>
-                       <div className="col-span-2"/>
+                       <div id="radar-chart" className="col-span-2">
+                           <ResultRadar data={scoreByDomain}/>
+                       </div>
                    </div>
-                    <ResultCard conformityPercentage={conformityPercentage} criticalPoint={criticalPoints} domainStrong={domainStrong} domainWeak={domainWeak}/>
+                   <ResultCard conformityPercentage={conformityPercentage} criticalPoint={criticalPoints} domainStrong={domainStrong} domainWeak={domainWeak}/>
+                   <ResultDomain scoreByDomain={scoreByDomain}/>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                       <div id="pie-chart"><ResultPie data={responseRepartition}/></div>
+                       <ResultBar data={effortRepartition}/>
+                   </div>
                    <ResultRecommandation answer={answers}/>
                </Container>
                <ResultFooter/>
            </div>
-            {/*{answers.map(v => (*/}
-            {/*    <div key={v.questionId} className="flex flex-col gap-2 text-text">*/}
-            {/*        <p>Questions Id : {v.questionId}</p>*/}
-            {/*        <p>Points : {v.points}pts</p>*/}
-            {/*        <p>Domaine : {v.domaine}</p>*/}
-            {/*        <p>Réponse : {v.answer}</p>*/}
-            {/*        <p>Recommandation : {v.recommandation}</p>*/}
-            {/*    </div>*/}
-            {/*))}*/}
-
-            {/*<p className="text-2xl font-bold text-text">Total de points : {USER_POINTS}</p>*/}
         </>
     )
 }

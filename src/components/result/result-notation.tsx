@@ -2,6 +2,7 @@
 
 import {Star} from "lucide-react";
 import {ResultNotationProps} from "@/types/props.type";
+import Cards from "@/components/ui/ui/card";
 
 
 export default function ResultNotation({
@@ -10,9 +11,7 @@ export default function ResultNotation({
     maturity,
 }: ResultNotationProps) {
     return (
-        <section className="flex flex-col items-start gap-4 rounded-xs bg-surface border-border border px-6 py-4">
-            <p className="uppercase text-text/50 font-medium text-sm">Maturité globale</p>
-
+        <Cards title={"Maturité global"}>
             <h2 className="text-text font-bold text-6xl">
                 {userPoints}
                 <span className="text-text/50 font-light text-sm">/{totalPoints}</span>
@@ -29,6 +28,6 @@ export default function ResultNotation({
             </div>
 
             <p className="text-text/50 font-medium text-sm">{maturity.description}</p>
-        </section>
+        </Cards>
     )
 }
