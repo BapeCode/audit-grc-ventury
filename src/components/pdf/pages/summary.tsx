@@ -44,7 +44,12 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: 150
+        height: "100%",
+        width: "50%",
+    },
+    bar_chart: {
+        height: "auto",
+        width: "50%"
     },
 
     view_score: {
@@ -89,7 +94,15 @@ const styles = StyleSheet.create({
     view_image: {
         display: "flex",
         flexDirection: "row",
-        gap: 8
+        gap: 8,
+        height: 180
+    },
+    view_barChart: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        flex: 1
     }
 })
 
@@ -103,9 +116,9 @@ export default function Summary({
     domainWeak,
     domainStrong,
     radar,
-    pie
+    pie,
+    bar
 }: SummaryProps) {
-    console.log(radar)
     return (
         <Pages>
             <PdfHeader/>
@@ -144,12 +157,15 @@ export default function Summary({
                         <Text style={styles.text_conformity}>{domainWeak}</Text>
                     </View>
                 </View>
-                <View>
+                <View style={styles.view_image}>
                     <Image style={styles.image} src={radar} />
                     <Image style={styles.image} src={pie} />
                 </View>
+                <View style={styles.view_barChart}>
+                    <Image style={styles.bar_chart} src={bar} />
+                </View>
             </Container>
-            <PdfFooter date={"Mardi 6 Juin 2026"}/>
+            <PdfFooter/>
         </Pages>
     )
 }

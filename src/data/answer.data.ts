@@ -65,6 +65,21 @@ const EFFORT_COLOR: Record<EffortLevel, string> = {
     low: "rgb(34 197 94 / 0.6)"
 }
 
+const BADGES_STYLES: Record<EffortLevel, { backgroundColor: string, color: string }> = {
+    high: {
+        backgroundColor: "rgb(239 68 68 / 0.2)",
+        color: "rgb(239 68 68)"
+    },
+    mid: {
+        backgroundColor: "rgb(245 158 11 / 0.2)",
+        color: "rgb(245 158 11)"
+    },
+    low: {
+        backgroundColor: "rgb(34 197 94 / 0.2)",
+        color: "rgb(34 197 94)"
+    }
+}
+
 export {
     ANSWER_CONFIG,
     ANSWER_POINTS,
@@ -72,5 +87,6 @@ export {
     ANSWER_COLOR,
     CRITICAL,
     EFFORT,
-    EFFORT_COLOR
+    EFFORT_COLOR,
+    BADGES_STYLES
 }

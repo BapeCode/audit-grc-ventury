@@ -127,7 +127,6 @@ interface CardsProps {
 // PDF
 interface CoverProps {
     company: string;
-    date: string
 }
 
 interface SummaryProps {
@@ -141,6 +140,7 @@ interface SummaryProps {
     domainWeak: Domain;
     radar: string;
     pie: string
+    bar: string;
 }
 
 export type {

@@ -2,6 +2,18 @@ import {Document, Page, StyleSheet, Font} from "@react-pdf/renderer"
 import {Cover} from "@/components/pdf/pages/cover";
 import Summary from "@/components/pdf/pages/summary";
 import {Domain} from "@/types/domain.type";
+import {AnswerState} from "@/types/answer.type";
+import Remediation from "@/components/pdf/pages/remediation";
+import {
+    calculatePointByDomain,
+    getConformity,
+    getCriticalPoints,
+    getDomainStrong,
+    getDomainWeakness,
+    getMaturityLevel
+} from "@/lib/result.utils";
+import {getMaxPoints} from "@/lib/questions.utils";
+import Analysis from "@/components/pdf/pages/analys";
 
 Font.register({
     family: "Roboto",
@@ -20,35 +32,40 @@ Font.register({
 
 export default function Report({
     radar,
-    pie
-}: {radar: string, pie: string}) {
+    pie,
+    bar,
+    answer,
+}: {radar: string, pie: string, bar: string, answer: AnswerState[]}) {
     const company: string = "Anthropic";
-    const date: string = "Mardi 9 Juin 2026";
+    const USER_SCORE = answer.reduce((sum, v) => sum + v.points, 0);
+    const MAX_SCORE = getMaxPoints();
+    const PERCENTAGE = (USER_SCORE / MAX_SCORE) * 100;
+    const LEVELS = getMaturityLevel(PERCENTAGE);
 
-    const level = "En cours de définition";
-    const score = 21;
-    const maxScore = 100;
-    const description = "Vous posez des bases concrètes. Plusieurs pratiques sont engagées ; il reste à les formaliser et à les généraliser pour atteindre une posture de sécurité robuste."
-    const conformity = 10
-    const critical = 4
-    const domainStrong: Domain = "Gouvernance"
-    const domainWeak: Domain = "Résilience"
+    const conformity = getConformity(answer);
+    const critical = getCriticalPoints(answer);
+    const domainStrong = getDomainStrong(answer);
+    const domainWeak = getDomainWeakness(answer);
+    const scoreByDomain = calculatePointByDomain(answer)
 
     return (
         <Document>
-            <Cover company={company} date={date} />
+            <Cover company={company} />
             <Summary
-                score={score}
-                maxScore={maxScore}
-                level={level}
-                description={description}
+                score={USER_SCORE}
+                maxScore={MAX_SCORE}
+                level={LEVELS.badge}
+                description={LEVELS.description}
                 conformity={conformity}
                 critical={critical}
                 domainStrong={domainStrong}
                 domainWeak={domainWeak}
                 radar={radar}
                 pie={pie}
+                bar={bar}
             />
+            <Analysis scoreByDomain={scoreByDomain} answer={answer}/>
+            <Remediation answer={answer}/>
         </Document>
     )
 }

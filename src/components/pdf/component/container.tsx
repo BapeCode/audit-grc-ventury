@@ -3,7 +3,7 @@ import {StyleSheet, View} from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
     container: {
-        padding: 40,
+        padding: 32,
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",

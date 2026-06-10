@@ -65,7 +65,7 @@ export default function ResultIndex() {
                    <ResultDomain scoreByDomain={scoreByDomain}/>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                        <div id="pie-chart"><ResultPie data={responseRepartition}/></div>
-                       <ResultBar data={effortRepartition}/>
+                       <div id="bar-chart"><ResultBar data={effortRepartition}/></div>
                    </div>
                    <ResultRecommandation answer={answers}/>
                </Container>

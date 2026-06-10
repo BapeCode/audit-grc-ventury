@@ -13,9 +13,11 @@ export default function ResultFooter() {
     const handleExport = async () => {
         const radar = await captureChart("radar-chart");
         const pie = await captureChart("pie-chart");
+        const bar = await captureChart("bar-chart");
 
         localStorage.setItem("radar-chart", radar);
-        localStorage.setItem("pie-chart", radar);
+        localStorage.setItem("pie-chart", pie);
+        localStorage.setItem("bar-chart", bar);
 
         router.push("/preview");
     }

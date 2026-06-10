@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
 
 export function Cover({
     company,
-    date,
 }: CoverProps) {
     return (
         <Pages>
@@ -54,7 +53,7 @@ export function Cover({
                 <Text style={styles.organisation}>Commandité par Ventury Technology</Text>
             </Container>
 
-            <PdfFooter date={date}/>
+            <PdfFooter/>
         </Pages>
     )
 }

@@ -17,9 +17,13 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function PdfFooter({
-    date
-}: {date: string}) {
+export default function PdfFooter() {
+    const date = new Date().toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
+
     return (
         <View style={styles.container}>
             <Text style={styles.date}>{date}</Text>
