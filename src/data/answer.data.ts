@@ -18,9 +18,9 @@ const ANSWER_CONFIG: Record<AnswerType, AnswerConfig> = {
 }
 
 const ANSWER_POINTS: Record<AnswerType, number> = {
-    compliant: 1,
-    partial: 0.5,
     noncompliant: 0,
+    partial: 0.5,
+    compliant: 1,
 }
 
 const ANSWER: AnswerProps[] = [

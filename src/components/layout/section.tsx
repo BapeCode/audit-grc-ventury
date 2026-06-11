@@ -9,7 +9,7 @@ export default function Section({
     return (
         <main className="flex flex-col flex-1 bg-bg font-sans h-full">
             <Headers/>
-            <section className="w-full py-8 px-6 md:px-0 flex-1 flex flex-col">
+            <section className="w-full py-8 px-6 flex-1 flex flex-col">
                 {children}
             </section>
         </main>

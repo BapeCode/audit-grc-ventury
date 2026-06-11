@@ -1,14 +1,16 @@
 "use client";
 
-import Button from "@/components/ui/ui/button";
+import Button from "@/components/ui/button";
 import {ChevronLeft, Download, RefreshCcw} from "lucide-react";
 import Container from "@/components/layout/container";
 import {captureChart} from "@/lib/utils";
 import {useRouter} from "next/navigation";
+import {useAuth} from "@/store/auth-store";
 
 
 export default function ResultFooter() {
     const router = useRouter()
+    const {logout} = useAuth();
 
     const handleExport = async () => {
         const radar = await captureChart("radar-chart");
@@ -19,13 +21,13 @@ export default function ResultFooter() {
         localStorage.setItem("pie-chart", pie);
         localStorage.setItem("bar-chart", bar);
 
-        router.push("/preview");
+        window.open('/preview', "_blank")
     }
 
     return (
         <footer className="w-full py-4 border-t border-border mt-4">
             <Container className="flex justify-end items-center gap-2">
-                <Button variant={"secondary"} className="w-auto">
+                <Button variant={"secondary"} className="w-auto" onClick={logout}>
                     <RefreshCcw className="h-4 w-4"/>
                     Recommencer l&apos;audit
                 </Button>

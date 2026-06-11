@@ -118,6 +118,10 @@ interface ButtonProps extends React.ComponentProps<"button"> {
     className?: string;
 }
 
+interface InputPros extends React.ComponentProps<"input"> {
+    className?: string;
+}
+
 interface CardsProps {
     children: ReactNode;
     className?: string;
@@ -127,6 +131,11 @@ interface CardsProps {
 // PDF
 interface CoverProps {
     company: string;
+    name: string;
+    email: string;
+    phone: string;
+    grade: string
+    message: string;
 }
 
 interface SummaryProps {
@@ -165,6 +174,7 @@ export type {
     SkeletonProps,
     ButtonProps,
     CardsProps,
+    InputPros,
 
     CoverProps,
     SummaryProps

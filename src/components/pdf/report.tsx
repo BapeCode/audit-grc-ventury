@@ -14,6 +14,7 @@ import {
 } from "@/lib/result.utils";
 import {getMaxPoints} from "@/lib/questions.utils";
 import Analysis from "@/components/pdf/pages/analys";
+import {AuthForm} from "@/types/auth.type";
 
 Font.register({
     family: "Roboto",
@@ -35,8 +36,15 @@ export default function Report({
     pie,
     bar,
     answer,
-}: {radar: string, pie: string, bar: string, answer: AnswerState[]}) {
-    const company: string = "Anthropic";
+    auth
+}: {radar: string, pie: string, bar: string, answer: AnswerState[], auth: AuthForm}) {
+    const company: string = auth.company;
+    const phone: string = auth.phone;
+    const poste: string = auth.grade;
+    const email: string = auth.email;
+    const name : string = auth.lastName + " " + auth.firstName;
+    const message : string = auth.message;
+
     const USER_SCORE = answer.reduce((sum, v) => sum + v.points, 0);
     const MAX_SCORE = getMaxPoints();
     const PERCENTAGE = (USER_SCORE / MAX_SCORE) * 100;
@@ -50,7 +58,7 @@ export default function Report({
 
     return (
         <Document>
-            <Cover company={company} />
+            <Cover company={company} name={name} phone={phone} email={email} grade={poste} message={message}/>
             <Summary
                 score={USER_SCORE}
                 maxScore={MAX_SCORE}

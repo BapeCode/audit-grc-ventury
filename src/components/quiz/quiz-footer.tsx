@@ -1,6 +1,6 @@
 "use client"
 
-import Button from "@/components/ui/ui/button";
+import Button from "@/components/ui/button";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import Container from "@/components/layout/container";
 import {QuizFooterProps} from "@/types/props.type";

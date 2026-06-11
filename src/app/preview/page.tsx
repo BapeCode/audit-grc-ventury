@@ -10,7 +10,6 @@ const PdfPreview = dynamic(
 export default function PreviewPage() {
     return (
         <main>
-            <button onClick={() => window.location.reload()}>Refresh PDF</button>
             <PdfPreview />
         </main>
     )

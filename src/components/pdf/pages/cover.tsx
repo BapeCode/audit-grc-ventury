@@ -22,6 +22,21 @@ const styles = StyleSheet.create({
         color: "#2A32FF",
         fontWeight: "semibold"
     },
+    text_title: {
+        fontSize: 12,
+        fontWeight: "medium",
+        color: "rgb(1 4 36 / 0.5)"
+    },
+    text_content: {
+      fontSize: 10,
+      fontWeight: "normal",
+      color: "rgb(1 4 36)"
+    },
+    text_content_bold: {
+        fontSize: 10,
+        fontWeight: "bold",
+        color: "rgb(1 4 36)"
+    },
     organisation: {
       fontSize: 14,
       color: "rgb(1 4 36 / 0.5)",
@@ -35,11 +50,21 @@ const styles = StyleSheet.create({
         padding: 20,
         borderTop: "1px solid rgba(0,0,0,0.08)"
     },
+    view_user: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 8
+    }
 })
 
 
 export function Cover({
     company,
+    name,
+    email,
+    phone,
+    grade,
+    message
 }: CoverProps) {
     return (
         <Pages>
@@ -51,6 +76,26 @@ export function Cover({
                     Pré-audit de {"\n"} sécurité pour <Text style={styles.company}>{company}</Text>
                 </Text>
                 <Text style={styles.organisation}>Commandité par Ventury Technology</Text>
+                <View style={styles.view_user}>
+                    <Text style={styles.text_title}>Utilisateur</Text>
+                    <Text style={styles.text_content}>
+                        Nom & Prénom : <Text style={styles.text_content_bold}>{name}</Text>
+                    </Text>
+                    <Text style={styles.text_content}>
+                        Email : <Text style={styles.text_content_bold}>{email}</Text>
+                    </Text>
+                    <Text style={styles.text_content}>
+                        Téléphone : <Text style={styles.text_content_bold}>{phone}</Text>
+                    </Text>
+                    <Text style={styles.text_content}>
+                        Poste : <Text style={styles.text_content_bold}>{grade}</Text>
+                    </Text>
+                    {message.length > 0 && (
+                        <Text style={styles.text_content}>
+                            Message : <Text style={styles.text_content_bold}>{message}</Text>
+                        </Text>
+                    )}
+                </View>
             </Container>
 
             <PdfFooter/>

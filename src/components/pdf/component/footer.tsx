@@ -25,7 +25,7 @@ export default function PdfFooter() {
     })
 
     return (
-        <View style={styles.container}>
+        <View fixed style={styles.container}>
             <Text style={styles.date}>{date}</Text>
             <Text style={styles.date}>Confidentiel - Usage interne</Text>
         </View>

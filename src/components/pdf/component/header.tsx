@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
 export default function PdfHeader() {
     return (
-        <View style={styles.container}>
+        <View fixed style={styles.container}>
             <Image src={"/logo-dark.png"} style={styles.logo}/>
             <Text style={styles.text} render={({ pageNumber, totalPages }) => (
                 `${pageNumber} / ${totalPages}`

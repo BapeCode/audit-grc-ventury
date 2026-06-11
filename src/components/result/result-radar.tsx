@@ -1,4 +1,4 @@
-import Cards from "@/components/ui/ui/card";
+import Cards from "@/components/ui/card";
 import {RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip} from "recharts"
 import {ResultRadarProps} from "@/types/props.type";
 

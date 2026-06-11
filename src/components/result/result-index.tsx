@@ -21,10 +21,13 @@ import ResultDomain from "@/components/result/result-domain";
 import ResultRadar from "@/components/result/result-radar";
 import ResultPie from "@/components/result/result-pie";
 import ResultBar from "@/components/result/result-bar";
+import {useAuth} from "@/store/auth-store";
+import {redirect} from "next/navigation";
 
 export default function ResultIndex() {
     const [answers, setAnswers] = useState<AnswerState[]>([])
     const [isLoaded, setIsLoaded] = useState(false)
+    const { auth } = useAuth();
 
     useEffect(() => {
         const saved = localStorage.getItem("answers")
@@ -33,6 +36,11 @@ export default function ResultIndex() {
     }, [])
 
     if (!isLoaded) return <Loading/>
+
+    if (!auth) {
+        redirect("/auth")
+    }
+
 
     const USER_POINTS = answers.reduce((sum, v) => sum + v.points, 0)
     const TOTAL_POINTS = getMaxPoints()
@@ -55,7 +63,7 @@ export default function ResultIndex() {
         <>
            <div className="flex flex-col flex-1">
                <Container className="flex flex-col gap-6 flex-1">
-                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                   <div className="flex flex-col md:grid md:grid-cols-3 gap-2">
                        <ResultNotation totalPoints={TOTAL_POINTS} userPoints={USER_POINTS} maturity={LEVELS}/>
                        <div id="radar-chart" className="col-span-2">
                            <ResultRadar data={scoreByDomain}/>

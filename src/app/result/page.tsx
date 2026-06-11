@@ -5,15 +5,18 @@ import Headers from "@/components/layout/header-section";
 import {QuizProvider} from "@/store/quiz-store";
 import ResultIndex from "@/components/result/result-index";
 import Section from "@/components/layout/section";
+import {AuthProvider} from "@/store/auth-store";
 
 export default function Page() {
     return (
         <ThemeProvider>
-            <Section>
-                <QuizProvider>
-                    <ResultIndex/>
-                </QuizProvider>
-            </Section>
+            <AuthProvider>
+                <Section>
+                    <QuizProvider>
+                        <ResultIndex/>
+                    </QuizProvider>
+                </Section>
+            </AuthProvider>
         </ThemeProvider>
     )
 }

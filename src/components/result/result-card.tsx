@@ -1,7 +1,7 @@
 "use client";
 
 import {ResultCardProps} from "@/types/props.type";
-import Cards from "@/components/ui/ui/card";
+import Cards from "@/components/ui/card";
 
 export default function ResultCard({
     conformityPercentage,

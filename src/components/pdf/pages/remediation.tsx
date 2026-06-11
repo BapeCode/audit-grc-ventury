@@ -4,7 +4,7 @@ import Pages from "@/components/pdf/component/page";
 import PdfHeader from "@/components/pdf/component/header";
 import PdfFooter from "@/components/pdf/component/footer";
 import {AnswerState} from "@/types/answer.type";
-import {ANSWER_CONFIG, BADGES_STYLES, EFFORT} from "@/data/answer.data";
+import {ANSWER_CONFIG, ANSWER_POINTS, BADGES_STYLES, EFFORT} from "@/data/answer.data";
 
 
 const styles = StyleSheet.create({
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
 export default function Remediation({
     answer
 }: {answer: AnswerState[]}) {
+
     return (
         <Pages>
             <PdfHeader/>
@@ -102,7 +103,7 @@ export default function Remediation({
                         const BadgeStyle = BADGES_STYLES[item.recommandation.effort]
 
                         return (
-                            <View key={index} style={styles.view_card}>
+                            <View wrap={false} key={index} style={styles.view_card}>
                                 <View style={styles.view_card_header}>
                                     <View style={[styles.view_card_header_critical, {backgroundColor: BadgeStyle.backgroundColor}]}>
                                         <Text style={[styles.text_critical, {color: BadgeStyle.color}]}>{config.label}</Text>

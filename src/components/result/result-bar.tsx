@@ -1,4 +1,4 @@
-import Cards from "@/components/ui/ui/card";
+import Cards from "@/components/ui/card";
 import {ResultBarProps} from "@/types/props.type";
 import {Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 

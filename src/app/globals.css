@@ -129,3 +129,12 @@ button:disabled {
     transform: translateY(0);
   }
 }
+
+@keyframes indeterminate {
+  0% {transform: translateX(-100%)}
+  100% {transform: translateX(400%)}
+}
+
+.progress-indeterminate {
+  animation: indeterminate 1.5s ease-in-out infinite;
+}

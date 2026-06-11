@@ -128,7 +128,7 @@ export default function Analysis({
                 {answer.map((item, index) => {
                     const questions = QUESTIONS.find(v => v.id === item.questionId)
                     return (
-                        <View key={index} style={styles.table_row}>
+                        <View wrap={false} key={index} style={styles.table_row}>
                             <Text style={[styles.cell, styles.cell_large]}>{questions?.text}</Text>
                             <Text style={[styles.cell, styles.cell_small]}>{ANSWER_CONFIG[item.answer].label}</Text>
                             <Text style={[styles.cell, styles.cell_small]}>{item.points}</Text>

@@ -4,7 +4,7 @@ import {TriangleAlert} from "lucide-react";
 import {CRITICAL, EFFORT} from "@/data/answer.data";
 import {ANSWER_CONFIG} from "@/data/answer.data";
 import {ResultRecommandationProps} from "@/types/props.type";
-import Cards from "@/components/ui/ui/card";
+import Cards from "@/components/ui/card";
 
 
 export default function ResultRecommandation({
@@ -30,7 +30,7 @@ export default function ResultRecommandation({
                             <p className="text-text/80 font-bold text-sm">Effort : {EFFORT[item.recommandation.effort]}</p>
                             <p className="text-text/80 font-normal text-sm">{item.recommandation.action}</p>
                             <p className="text-text/50 font-normal text-xs">{item.recommandation.description}</p>
-                            {item.recommandation.reference && <p className="text-text/30 font-normal text-xs">Référence : {item.recommandation.reference}</p>}
+                            {item.recommandation.reference && <p className="text-primary/80 font-normal text-xs">Référence : {item.recommandation.reference}</p>}
                         </article>
                     )
                 })}
