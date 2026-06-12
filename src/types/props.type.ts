@@ -152,6 +152,15 @@ interface SummaryProps {
     bar: string;
 }
 
+// Auth
+
+interface AuthMFAProps {
+    email: string;
+    code: string[];
+    setCode: React.Dispatch<React.SetStateAction<string[]>>;
+    inputRef: React.RefObject<(HTMLInputElement | null)[]>;
+}
+
 export type {
     QuizContextProps,
     AnswerProps,
@@ -177,5 +186,6 @@ export type {
     InputPros,
 
     CoverProps,
-    SummaryProps
+    SummaryProps,
+    AuthMFAProps
 }
