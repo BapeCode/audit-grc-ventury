@@ -1,7 +1,7 @@
 "use client";
 
 import Headers from "@/components/layout/header-section";
-import {ThemeProvider, useTheme} from "@/store/theme-store";
+import {ThemeProvider} from "@/store/theme-store";
 import ErrorSection from "@/components/layout/error-section";
 
 export default function Error({

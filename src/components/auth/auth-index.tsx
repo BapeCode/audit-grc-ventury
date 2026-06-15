@@ -1,7 +1,7 @@
 "use client";
 
 import {AUTH_STEPPER} from "@/data/auth.data";
-import {useActionState, useState} from "react";
+import { useState} from "react";
 import React from "react";
 import {Check, Loader} from "lucide-react";
 import Button from "@/components/ui/button";
@@ -9,7 +9,6 @@ import {AuthForm, AuthFormStep} from "@/types/auth.type";
 import {isProEmail} from "@/lib/utils";
 import AuthFormComponent from "@/components/auth/auth-form";
 import {useAuth} from "@/store/auth-store";
-import {redirect} from "next/navigation";
 import Container from "@/components/layout/container";
 import Cards from "@/components/ui/card";
 

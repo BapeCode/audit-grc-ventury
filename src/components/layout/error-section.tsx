@@ -6,12 +6,10 @@ import Button from "@/components/ui/button";
 import {useTheme} from "@/store/theme-store";
 
 interface ErrorSectionProps {
-    error: Error;
     reset: () => void;
 }
 
 export default function ErrorSection({
-    error,
     reset
 }: ErrorSectionProps) {
     const {isDark} = useTheme()

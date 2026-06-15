@@ -4,7 +4,7 @@ import Pages from "@/components/pdf/component/page";
 import PdfHeader from "@/components/pdf/component/header";
 import PdfFooter from "@/components/pdf/component/footer";
 import {AnswerState} from "@/types/answer.type";
-import {ANSWER_CONFIG, ANSWER_POINTS, BADGES_STYLES, EFFORT} from "@/data/answer.data";
+import {ANSWER_CONFIG, BADGES_STYLES, EFFORT} from "@/data/answer.data";
 
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import Container from "@/components/pdf/component/container";
 import {StyleSheet, Text, View} from "@react-pdf/renderer";
 import {CalculateProps} from "@/types/props.type";
 import {AnswerState} from "@/types/answer.type";
-import {ANSWER_CONFIG, CRITICAL} from "@/data/answer.data";
+import {ANSWER_CONFIG} from "@/data/answer.data";
 import {QUESTIONS} from "@/data/question.data";
 
 const styles = StyleSheet.create({
@@ -98,7 +98,7 @@ export default function Analysis({
 
                 <View style={styles.view_container}>
                     {scoreByDomain.map((value) => {
-                        let percentage = (value.score / value.maxScore) * 100;
+                        const percentage = (value.score / value.maxScore) * 100;
                         return (
                             <View key={value.domain} style={styles.view_items}>
                                 <Text style={styles.text_domain}>{value.domain}</Text>

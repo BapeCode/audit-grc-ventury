@@ -1,10 +1,5 @@
 "use client";
 
-import { Loader } from "lucide-react";
-import Link from "next/link";
-import Button from "@/components/ui/button";
-import Image from "next/image";
-import {useTheme} from "@/store/theme-store";
 import Skeleton from "@/components/ui/skeleton";
 
 export default function Loading() {

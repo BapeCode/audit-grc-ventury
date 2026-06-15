@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 export default function Container({
     children,
     style,
-}: {children: ReactNode, style?: Record<string, any>}) {
+}: {children: ReactNode, style?: Record<string, string | number>}) {
     return (
         <View style={[styles.container, style!]}>
             {children}

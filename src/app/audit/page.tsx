@@ -1,7 +1,6 @@
 "use client";
 
 import {ThemeProvider} from "@/store/theme-store";
-import Headers from "@/components/layout/header-section";
 import {QuizProvider} from "@/store/quiz-store";
 import QuizIndex from "@/components/quiz/quiz-index";
 import Section from "@/components/layout/section";
