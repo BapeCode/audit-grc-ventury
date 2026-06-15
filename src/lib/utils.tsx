@@ -50,3 +50,10 @@ export function isProEmail(email: string): boolean {
     if (!domain) return false
     return !BLOCKED_DOMAINS.includes(domain)
 }
+
+export function  maskEmail(email: string): string {
+    const [local, domain] = email.split("@");
+    const visiblePart = local.slice(0, 2);
+    const maskedPart = "*".repeat(local.length - 2);
+    return `${visiblePart}${maskedPart}@${domain}`;
+}
