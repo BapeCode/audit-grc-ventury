@@ -1,7 +1,6 @@
-import {Document, Page, StyleSheet, Font} from "@react-pdf/renderer"
+import {Document, Font} from "@react-pdf/renderer"
 import {Cover} from "@/components/pdf/pages/cover";
 import Summary from "@/components/pdf/pages/summary";
-import {Domain} from "@/types/domain.type";
 import {AnswerState} from "@/types/answer.type";
 import Remediation from "@/components/pdf/pages/remediation";
 import {
@@ -15,19 +14,20 @@ import {
 import {getMaxPoints} from "@/lib/questions.utils";
 import Analysis from "@/components/pdf/pages/analys";
 import {AuthForm} from "@/types/auth.type";
+import path from "node:path";
 
 Font.register({
     family: "Roboto",
     fonts: [
-        {src: "/font/Roboto-Black.ttf", fontWeight: "black"},
-        {src: "/font/Roboto-ExtraBold.ttf", fontWeight: "extrabold"},
-        {src: "/font/Roboto-Bold.ttf", fontWeight: "bold"},
-        {src: "/font/Roboto-SemiBold.ttf", fontWeight: "semibold"},
-        {src: "/font/Roboto-Medium.ttf", fontWeight: "medium"},
-        {src: "/font/Roboto-Regular.ttf", fontWeight: "normal"},
-        {src: "/font/Roboto-Light.ttf", fontWeight: "light"},
-        {src: "/font/Roboto-ExtraLight.ttf", fontWeight: "extralight"},
-        {src: "/font/Roboto-Thin.ttf", fontWeight: "thin"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Black.ttf"), fontWeight: "black"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-ExtraBold.ttf"), fontWeight: "extrabold"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Bold.ttf"), fontWeight: "bold"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-SemiBold.ttf"), fontWeight: "semibold"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Medium.ttf"), fontWeight: "medium"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Regular.ttf"), fontWeight: "normal"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Light.ttf"), fontWeight: "light"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-ExtraLight.ttf"), fontWeight: "extralight"},
+        {src: path.join(process.cwd(), "public", "font", "Roboto-Thin.ttf"), fontWeight: "thin"},
     ]
 })
 

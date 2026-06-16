@@ -1,6 +1,8 @@
 "use client";
 
 import {useTheme} from "@/store/theme-store";
+import Image from "next/image"
+import Link from "next/link";
 
 export default function Logo() {
     const { isDark } = useTheme();
@@ -8,9 +10,29 @@ export default function Logo() {
     return (
         <>
             {isDark ? (
-                <img src={"/logo-light.png"} alt={"Logo Ventury Dark Mode"} className="w-37.5 md:w-50 h-auto"/>
+                <Link href={"/"}>
+                    <Image
+                        src="/logo-dark.png"
+                        alt="Logo Dark Ventury"
+                        width={200}
+                        height={50}
+                        style={{ width: "auto", height: "auto" }}  
+                        loading="eager"
+                        priority
+                    />
+                </Link>
             ): (
-                <img src={"/logo-dark.png"} alt={"Logo Ventury Light Mode"} className="w-37.5 md:w-50 h-auto"/>
+                <Link href={"/"}>
+                    <Image
+                        src="/logo-dark.png"
+                        alt="Logo Dark Ventury"
+                        width={200}
+                        height={50}
+                        style={{ width: "auto", height: "auto" }}
+                        loading="eager"
+                        priority
+                    />
+                </Link>
             )}
         </>
     )

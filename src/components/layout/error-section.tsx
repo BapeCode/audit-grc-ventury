@@ -3,7 +3,7 @@
 import {Loader} from "lucide-react";
 import Link from "next/link";
 import Button from "@/components/ui/button";
-import {useTheme} from "@/store/theme-store";
+import Logo from "@/components/layout/logo";
 
 interface ErrorSectionProps {
     reset: () => void;
@@ -12,15 +12,10 @@ interface ErrorSectionProps {
 export default function ErrorSection({
     reset
 }: ErrorSectionProps) {
-    const {isDark} = useTheme()
     return (
         <section className="md:max-w-5xl md:mx-auto w-full py-8 px-6 md:px-0 flex-1 flex flex-col">
             <div className="flex flex-col items-center justify-center gap-4 px-6 py-8">
-                {isDark ? (
-                    <img src={"/logo-light.png"} alt={"Logo Ventury Dark Mode"} className="w-37.5 md:w-80 h-auto mb-32"/>
-                ): (
-                    <img src={"/logo-dark.png"} alt={"Logo Ventury Light Mode"} className="w-37.5 md:w-80 h-auto mb-32"/>
-                )}
+                <Logo/>
 
                 <Loader className="animate-spin h-20 w-20 text-primary"/>
                 <h1 className="text-text text-2xl text-center font-semibold">Une erreur est survenu</h1>

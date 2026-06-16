@@ -3,9 +3,7 @@ import {Moon, Sun} from "lucide-react";
 import {useTheme} from "@/store/theme-store";
 
 export default function ThemeToggle() {
-    const { isDark, mounted, toggleTheme } = useTheme()
-
-    if (!mounted) return <div className="h-8 w-8"/>
+    const { isDark, toggleTheme } = useTheme()
 
     return (
         <button

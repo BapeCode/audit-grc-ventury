@@ -1,6 +1,6 @@
 import Cards from "@/components/ui/card";
 import {ResultBarProps} from "@/types/props.type";
-import {Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 export default function ResultBar({
     data

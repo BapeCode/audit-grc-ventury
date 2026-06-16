@@ -1,4 +1,5 @@
 import {Image, StyleSheet, Text, View} from "@react-pdf/renderer";
+import path from "node:path";
 
 const styles = StyleSheet.create({
     container: {
@@ -20,10 +21,13 @@ const styles = StyleSheet.create({
     }
 })
 
+const logoPath = path.join(process.cwd(), "public", "logo-dark.png")
+
 export default function PdfHeader() {
     return (
         <View fixed style={styles.container}>
-            <Image src={"/logo-dark.png"} style={styles.logo}/>
+            {/* eslint-disable-next-line jsx-a11y/alt-text */}
+            <Image src={logoPath} style={styles.logo}/>
             <Text style={styles.text} render={({ pageNumber, totalPages }) => (
                 `${pageNumber} / ${totalPages}`
             )} />

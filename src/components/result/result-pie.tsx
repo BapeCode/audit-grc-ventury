@@ -1,7 +1,6 @@
 import {ResultPieProps} from "@/types/props.type";
 import Cards from "@/components/ui/card";
 import {Legend, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
-import {ANSWER_CONFIG} from "@/data/answer.data";
 
 export default function ResultPie({
     data

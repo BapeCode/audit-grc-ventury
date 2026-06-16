@@ -1,14 +1,14 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import Loading from "@/components/layout/loading";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import Loading from "@/components/layout/loading";
 
 type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
     theme: Theme;
     isDark: boolean;
-    mounted: boolean;
     toggleTheme: () => void;
 }
 
@@ -17,19 +17,17 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 function ThemeProvider({
     children
 }: {children: ReactNode}) {
-    const [theme, setTheme] = useState<Theme>("light");
-    const [mounted, setMounted] = useState<boolean>(false);
+    const [mounted, setMounted] = useState(false)
+    const [theme, setTheme] = useState<Theme>("light")
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") as Theme | null;
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const initialTheme: Theme = savedTheme || (prefersDark ? "dark" : "light")
-
-        setTheme(initialTheme);
-
-        document.documentElement.classList.toggle("dark", initialTheme === "dark");
-        setMounted(true);
-    }, []);
+        const savedTheme = localStorage.getItem("theme") as Theme
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+        const initialTheme = savedTheme || (prefersDark ? "dark" : "light")
+        setTheme(initialTheme)
+        document.documentElement.classList.toggle("dark", initialTheme === "dark")
+        setMounted(true)
+    }, [])
 
     const toggleTheme = () => {
         const nextTheme: Theme = theme === "dark" ? "light" : "dark";
@@ -41,8 +39,8 @@ function ThemeProvider({
     const isDark = theme === "dark";
 
     return (
-        <ThemeContext.Provider value={{ theme, isDark, mounted, toggleTheme }}>
-            {mounted ? children : <Loading/>}
+        <ThemeContext.Provider value={{ theme, isDark, toggleTheme }}>
+            {mounted ? children : <Loading/> }
         </ThemeContext.Provider>
     );
 }

@@ -1,111 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg:            #F8F9FF;
-  --surface:       #FFFFFF;
-  --surface-2:     #FBFBFF;
-  --border:        rgba(0,0,0,0.08);
-  --border-strong: rgba(0,0,0,0.14);
-  --text:          #010424;
-  --text-soft:     rgba(1,4,36,0.72);
-  --muted:         rgba(0,0,0,0.45);
-  --muted-2:       rgba(0,0,0,0.30);
-  --primary:       #2A32FF;
-  --primary-deep:  #1F26D6;
-  --on-primary:    #FFFFFF;
-  --primary-tint:  rgba(42,50,255,0.06);
-  --primary-tint-2:rgba(42,50,255,0.10);
-  --track:         rgba(0,0,0,0.08);
-  --success:        rgb(22, 163, 74);
-  --warning:       rgb(217, 119, 6);
-  --danger:        rgb(220, 38, 38);
-  --red-tint:      rgba(229,72,77,0.10);
-  --ghost-hover:   rgba(0,0,0,0.035);
-  --radar-grid:    rgba(1,4,36,0.10);
-  --scrim:         rgba(12,14,28,0.42);
+    --bg: #f8f9ff;
+    --surface: #ffffff;
+    --surface-2: #fbfbff;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.14);
+    --text: #010424;
+    --text-soft: rgba(1, 4, 36, 0.72);
+    --muted: rgba(0, 0, 0, 0.45);
+    --muted-2: rgba(0, 0, 0, 0.3);
+    --primary: #2a32ff;
+    --primary-deep: #1f26d6;
+    --on-primary: #ffffff;
+    --primary-tint: rgba(42, 50, 255, 0.06);
+    --primary-tint-2: rgba(42, 50, 255, 0.1);
+    --track: rgba(0, 0, 0, 0.08);
+    --success: rgb(22, 163, 74);
+    --warning: rgb(217, 119, 6);
+    --danger: rgb(220, 38, 38);
+    --red-tint: rgba(229, 72, 77, 0.1);
+    --ghost-hover: rgba(0, 0, 0, 0.035);
+    --radar-grid: rgba(1, 4, 36, 0.1);
+    --scrim: rgba(12, 14, 28, 0.42);
 
-  --roboto: 'Roboto', sans-serif;
-  --radius: 4px;
+    --roboto: "Roboto", sans-serif;
+    --radius: 4px;
 }
 
 .dark {
-  --bg:            #0F1117;
-  --surface:       #1A1D2E;
-  --surface-2:     #1E2233;
-  --border:        rgba(255,255,255,0.06);
-  --border-strong: rgba(255,255,255,0.14);
-  --text:          #FFFFFF;
-  --text-soft:     rgba(255,255,255,0.78);
-  --muted:         rgba(255,255,255,0.40);
-  --muted-2:       rgba(255,255,255,0.26);
-  --primary:       #4C53FF;
-  --primary-deep:  #6066FF;
-  --on-primary:    #FFFFFF;
-  --primary-tint:  rgba(76,83,255,0.12);
-  --primary-tint-2:rgba(76,83,255,0.20);
-  --track:         rgba(255,255,255,0.08);
-  --success:        rgb(22, 163, 74);
-  --warning:       rgb(217, 119, 6);
-  --danger:        rgb(220, 38, 38);
-  --red-tint:      rgba(255,96,102,0.14);
-  --ghost-hover:   rgba(255,255,255,0.05);
-  --radar-grid:    rgba(255,255,255,0.10);
-  --scrim:         rgba(0,0,0,0.62);
+    --bg: #0f1117;
+    --surface: #1a1d2e;
+    --surface-2: #1e2233;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --text: #ffffff;
+    --text-soft: rgba(255, 255, 255, 0.78);
+    --muted: rgba(255, 255, 255, 0.4);
+    --muted-2: rgba(255, 255, 255, 0.26);
+    --primary: #4c53ff;
+    --primary-deep: #6066ff;
+    --on-primary: #ffffff;
+    --primary-tint: rgba(76, 83, 255, 0.12);
+    --primary-tint-2: rgba(76, 83, 255, 0.2);
+    --track: rgba(255, 255, 255, 0.08);
+    --success: rgb(22, 163, 74);
+    --warning: rgb(217, 119, 6);
+    --danger: rgb(220, 38, 38);
+    --red-tint: rgba(255, 96, 102, 0.14);
+    --ghost-hover: rgba(255, 255, 255, 0.05);
+    --radar-grid: rgba(255, 255, 255, 0.1);
+    --scrim: rgba(0, 0, 0, 0.62);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-foreground: var(--surface-2);
-  --color-border: var(--border);
-  --color-border-muted: var(--border-strong);
-  --color-text: var(--text);
-  --color-text-muted: var(--text-soft);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-2);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-deep);
-  --color-on-primary: var(--on-primary);
-  --color-primary-tint: var(--primary-tint);
-  --color-primary-tint-foreground: var(--primary-tint-2);
-  --color-track: var(--track);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --color-danger-tint: var(--red-tint);
-  --color-ghost-hover: var(--ghost-hover);
-  --color-radar-grid: var(--radar-grid);
-  --color-scrim: var(--scrim);
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-surface-foreground: var(--surface-2);
+    --color-border: var(--border);
+    --color-border-muted: var(--border-strong);
+    --color-text: var(--text);
+    --color-text-muted: var(--text-soft);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-2);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-deep);
+    --color-on-primary: var(--on-primary);
+    --color-primary-tint: var(--primary-tint);
+    --color-primary-tint-foreground: var(--primary-tint-2);
+    --color-track: var(--track);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--danger);
+    --color-danger-tint: var(--red-tint);
+    --color-ghost-hover: var(--ghost-hover);
+    --color-radar-grid: var(--radar-grid);
+    --color-scrim: var(--scrim);
 
-  --font-roboto: var(--roboto);
-  --radius-xs: var(--radius);
+    --font-roboto: var(--roboto);
+    --radius-xs: var(--radius);
 
-  --animate-translate: translate 0.5s ease-out;
+    --animate-translate: translate 0.5s ease-out;
+    --animate-slide-in: slideInRight 0.4s ease-out forwards;
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 }
 
 body {
-  font-family: var(--roboto), sans-serif;
-  background: var(--bg);
+    font-family: var(--roboto), sans-serif;
+    background: var(--bg);
 }
 
 * {
-  transition-duration: 1s;
-  transition-property: all;
-  transition-delay: inherit;
+    transition-duration: 1s;
+    transition-property: all;
+    transition-delay: inherit;
 }
 
 button:not(:disabled),
-[role='button']:not(:disabled) {
-  cursor: pointer;
+[role="button"]:not(:disabled) {
+    cursor: pointer;
 }
 
 button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .recharts-wrapper svg:focus,
@@ -114,27 +126,30 @@ button:disabled {
 .recharts-pie:focus,
 .recharts-sector:focus,
 .recharts-bar-rectangle:focus,
-.recharts-rectangle:focus
-{
-  outline: none !important;
+.recharts-rectangle:focus {
+    outline: none !important;
 }
 
 @keyframes translate {
-  0% {
-    opacity: 0;
-    transform: translateY(50%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes indeterminate {
-  0% {transform: translateX(-100%)}
-  100% {transform: translateX(400%)}
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(400%);
+    }
 }
 
 .progress-indeterminate {
-  animation: indeterminate 1.5s ease-in-out infinite;
+    animation: indeterminate 1.5s ease-in-out infinite;
 }

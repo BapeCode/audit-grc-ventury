@@ -1,18 +1,16 @@
 "use client";
 
 import { AUTH_STEPPER } from "@/data/auth.data";
-import { useState, useRef } from "react";
+import { useState, useRef, useActionState, startTransition } from "react";
 import React from "react";
 import { Check, Loader } from "lucide-react";
 import Button from "@/components/ui/button";
-import { AuthForm, AuthFormStep } from "@/types/auth.type";
+import { AuthFormStep } from "@/types/auth.type";
 import { isProEmail } from "@/lib/utils";
 import AuthFormComponent from "@/components/auth/auth-form";
-import { useAuth } from "@/store/auth-store";
 import Container from "@/components/layout/container";
 import Cards from "@/components/ui/card";
-import AuthLoader from "@/components/auth/auth-loader";
-import AuthMFA from "@/components/auth/auth-mfa";
+import { submitForm } from "@/actions/auth.actions";
 
 const STEP_PERSONAL: AuthFormStep[] = [
   { key: "firstName", label: "Prénom", placeholder: "Prénom" },
@@ -39,221 +37,64 @@ const STEP_FINISH: AuthFormStep[] = [
   },
 ];
 
-const LOADING_MESSAGES: Record<string, { title: string; subtitle: string }> = {
-  validating: {
-    title: "Vérification de vos données...",
-    subtitle: "Vos informations sont en cours de vérifications",
-  },
-  sending: {
-    title: "Envoie du mail...",
-    subtitle: "Le rapport est en cours d'envoie par mail...",
-  },
-  mfa: {
-    title: "Envoie du mail...",
-    subtitle: "Un mail de double authentification en cours d'envoie...",
-  },
-  mfa_failed: {
-    title: "Une erreur est survenue.",
-    subtitle: "Votre double authentification n'a pas fonctionner...",
-  },
-  done: {
-    title: "Mail envoyé avec succès, redirection en cours...",
-    subtitle: "Vous allez recevoir votre rapport, merci de votre confiance !",
-  },
-  error: {
-    title: "Une erreur serveur est survenu.",
-    subtitle:
-      "Si l'erreur devient persistant, merci de prévenir l'administrateur du site !",
-  },
-  invalid: {
-    title: "Un champ est invalide, l'authentification a échoué.",
-    subtitle: "Vérifier vos champs sur les pages précédente et réssayer.",
-  },
-};
-
 export default function AuthIndex() {
-  const [step, setStep] = useState<number>(3);
-  const [form, setForm] = useState<AuthForm>({
-    firstName: "",
-    lastName: "",
-    email: "forest.mathieu69270@gmail.com",
-    phone: "",
-    company: "",
-    grade: "",
-    message: "",
-  });
-  const [error, setError] = useState<AuthForm>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    grade: "",
-    message: "",
-  });
-  const [loadingStep, setLoadingStep] = useState<string>("validating");
+  const [step, setStep] = useState<number>(1);
   const [legal, setLegal] = useState<boolean>(false);
-  const [code, setCode] = useState<string[]>(Array(6).fill(""));
-  const inputRef = useRef<(HTMLInputElement | null)[]>([]);
-  const { login } = useAuth();
+  const [error, setError] = useState<Record<string, string>>({});
+  const [state, actions, isPending] = useActionState(submitForm, undefined);
 
-  const validator = (step: "personal" | "company" | "final"): boolean => {
-    const newErrors = { ...error };
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleNext = () => {
+    if (!formRef.current) return;
+
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+    const newErrors: Record<string, string> = {};
     let isValid = true;
 
-    if (step === "personal") {
-      if (form.firstName.length < 3) {
+    if (step === 1) {
+      if (!data.firstName || String(data.firstName).length < 3) {
         newErrors.firstName = "Le prénom doit contenir au moins 3 caractères.";
         isValid = false;
-      } else {
-        newErrors.firstName = "";
       }
-
-      if (form.lastName.length < 3) {
-        newErrors.lastName =
-          "Le nom de famille doit contenir au moins 3 caractères.";
+      if (!data.lastName || String(data.firstName).length < 3) {
+        newErrors.lastName = "Le nom doit contenir au moins 3 caractères.";
         isValid = false;
-      } else {
-        newErrors.lastName = "";
       }
-
-      if (!isProEmail(form.email)) {
-        newErrors.email = "L'email doit être un email professionnel.";
+      if (!data.email || !isProEmail(data.email as string)) {
+        newErrors.email = "L'e-Mail doit être un e-Mail professionnel.";
         isValid = false;
-      } else {
-        newErrors.email = "";
       }
-
-      if (form.phone.length < 14) {
+      if (!data.phone || String(data.phone).length !== 10) {
         newErrors.phone = "Le téléphone doit être valide.";
         isValid = false;
-      } else {
-        newErrors.phone = "";
       }
     }
 
-    if (step === "company") {
-      if (form.company.length < 3) {
+    if (step === 2) {
+      if (!data.company || String(data.company).length < 3) {
         newErrors.company = "L'entreprise doit contenir au moins 3 caractères.";
         isValid = false;
-      } else {
-        newErrors.company = "";
-      }
-
-      if (form.grade.length < 3) {
-        newErrors.grade = "Votre poste doit contenir au moins 3 caractères.";
-        isValid = false;
-      } else {
-        newErrors.grade = "";
       }
     }
 
     setError(newErrors);
-    return isValid;
-  };
 
-  const nextStep = () => {
-    if (step + 1 > 6) return;
-    if (step === 3) {
-      handleMFA().then();
-      return;
-    }
-    if (step === 5) {
-      handleSubmit().then();
-      return;
-    }
-    if (step === 1 && !validator("personal")) return;
-    if (step === 2 && !validator("company")) return;
-
-    console.log(step);
-    setStep(step + 1);
-  };
-
-  const prevStep = () => {
-    if (step - 1 < 0) return;
-    setStep(step - 1);
-  };
-
-  const reset = () => {
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      grade: "",
-      message: "",
-    });
-    setError({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      grade: "",
-      message: "",
-    });
-    setStep(1);
-    setLoadingStep("validating");
-  };
-
-  const handleSubmit = async () => {
-    setStep(6);
-    const response = await fetch("/api/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        form: JSON.stringify(form),
-        code: code,
-        token: localStorage.getItem("token"),
-      }),
-    });
-    const reader = response?.body?.getReader();
-
-    if (!reader) return setLoadingStep("error");
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const message: string = new TextDecoder().decode(value);
-      setLoadingStep(message);
-      if (message === "mfa_failed") {
-        setTimeout(() => {
-          setStep(5);
-        }, 1500);
-      }
-      if (message === "done") {
-        setTimeout(() => {
-          login(form);
-          reset();
-        }, 1500);
+    if (isValid) {
+      setError({});
+      if (step < 3) {
+        setStep(step + 1);
+      } else if (step === 3) {
+        startTransition(() => {
+          actions(formData);
+        });
       }
     }
   };
 
-  const handleMFA = async () => {
-    setStep(4);
-
-    const response = await fetch("/api/mfa", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: form.email,
-      }),
-    });
-
-    if (!response.ok) {
-      setStep(3);
-      return;
-    }
-    const { token } = await response.json();
-    localStorage.setItem("token", token);
-
-    setStep(5);
+  const handlePrev = () => {
+    if (step > 1) setStep(step - 1);
   };
 
   return (
@@ -295,59 +136,39 @@ export default function AuthIndex() {
         </header>
 
         <form
-          onSubmit={handleSubmit}
+          ref={formRef}
           className="flex-1 mt-8 w-full flex flex-col justify-between"
         >
-          {step === 1 && (
+          <div className="flex-1 w-full relative">
             <AuthFormComponent
               title={"Information personnelles"}
               subtitle={
                 "Dites-nous qui vous êtes pour personnaliser votre rapport."
               }
-              form={form}
-              setForm={setForm}
-              error={error}
               fields={STEP_PERSONAL}
-            />
-          )}
-          {step === 2 && (
-            <AuthFormComponent
-              title={"Informations d'entreprises"}
-              subtitle={"Dites-nous en plus concernant votre entreprise."}
-              form={form}
-              setForm={setForm}
+              currentIndex={step}
+              viewIndex={1}
               error={error}
+            />
+
+            <AuthFormComponent
+              title={"Information entreprises"}
+              subtitle={"Dites-nous en plus sur votre entreprise."}
               fields={STEP_COMPANY}
-            />
-          )}
-
-          {step === 3 && (
-            <AuthFormComponent
-              title={"Informations complémentaire"}
-              subtitle={"Ajoutez un message complémentaire en cas de besoin."}
-              form={form}
-              setForm={setForm}
+              currentIndex={step}
+              viewIndex={2}
               error={error}
+            />
+
+            <AuthFormComponent
+              title={"Information complémentaire"}
+              subtitle={"Ajoutez un message complémentaire en cas de besoin."}
               fields={STEP_FINISH}
+              currentIndex={step}
+              viewIndex={3}
+              error={error}
             />
-          )}
-
-          {step === 4 && (
-            <AuthLoader message={LOADING_MESSAGES} loadingStep={"mfa"} />
-          )}
-
-          {step === 5 && (
-            <AuthMFA
-              email={form.email}
-              code={code}
-              setCode={setCode}
-              inputRef={inputRef}
-            />
-          )}
-
-          {step === 6 && (
-            <AuthLoader message={LOADING_MESSAGES} loadingStep={loadingStep} />
-          )}
+          </div>
 
           <footer className="flex flex-col items-center justify-between w-full gap-4">
             {step === 3 && (
@@ -363,22 +184,36 @@ export default function AuthIndex() {
                 </p>
               </Cards>
             )}
+            {state?.error && (
+              <p className="text-danger text-sm font-medium">{state.error}</p>
+            )}
             <div className="flex items-center gap-2 w-full">
               <Button
                 type="button"
                 variant={"secondary"}
                 disabled={step === 1}
-                onClick={prevStep}
+                onClick={handlePrev}
               >
                 Précédent
               </Button>
               <Button
                 type={"button"}
                 variant={"primary"}
-                onClick={nextStep}
                 disabled={step === 3 && !legal}
+                onClick={handleNext}
               >
-                {step === 5 ? "Valider" : "Suivant"}
+                {step === 3 ? (
+                  isPending ? (
+                    <div className="flex items-center gap-2">
+                      <Loader className="animate-spin text-text/50 h-4 w-4" />
+                      <p>Envoi en cours..</p>
+                    </div>
+                  ) : (
+                    "Valider"
+                  )
+                ) : (
+                  "Suivant"
+                )}
               </Button>
             </div>
           </footer>

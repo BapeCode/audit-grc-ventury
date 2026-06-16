@@ -8,7 +8,7 @@ export default function ResultDomain({
         <Cards title={"Score par domaine"}>
             <div className="flex flex-col gap-2 w-full">
                 {scoreByDomain.map((value) => {
-                    let percentage = (value.score / value.maxScore) * 100;
+                    const percentage = (value.score / value.maxScore) * 100;
 
                     return (
                         <div key={value.domain} className="grid grid-cols-[100px_1fr_50px] items-center gap-2 w-full">

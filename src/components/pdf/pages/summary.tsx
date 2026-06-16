@@ -158,10 +158,13 @@ export default function Summary({
                     </View>
                 </View>
                 <View style={styles.view_image}>
+                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                     <Image style={styles.image} src={radar} />
+                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                     <Image style={styles.image} src={pie} />
                 </View>
                 <View style={styles.view_barChart}>
+                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                     <Image style={styles.bar_chart} src={bar} />
                 </View>
             </Container>

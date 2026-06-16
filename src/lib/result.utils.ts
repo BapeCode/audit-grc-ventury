@@ -1,7 +1,6 @@
 import {MaturityLevel} from "@/types/result.type";
 import {Domain} from "@/types/domain.type";
 import {AnswerState, AnswerType} from "@/types/answer.type";
-import {QUESTIONS} from "@/data/question.data";
 import {MATURITY} from "@/data/result.data";
 import {getAllQuestion} from "@/lib/questions.utils";
 import {getMaxPointsByDomain} from "@/lib/domain.utils";

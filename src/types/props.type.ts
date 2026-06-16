@@ -3,8 +3,6 @@ import {Questions} from "@/types/questions.type";
 import {AnswerState, AnswerType} from "@/types/answer.type";
 import {MaturityLevel} from "@/types/result.type";
 import React, {ReactNode} from "react";
-import Summary from "@/components/pdf/pages/summary";
-
 
 // Quiz
 interface QuizContextProps {

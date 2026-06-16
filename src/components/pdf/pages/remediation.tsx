@@ -95,7 +95,7 @@ export default function Remediation({
             <Container style={{
                 justifyContent: "flex-start"
             }}>
-                <Text style={styles.text_title}>Plan d'action priorisé</Text>
+                <Text style={styles.text_title}>Plan d&apos;action priorisé</Text>
 
                 <View style={styles.view_container}>
                     {answer.map((item, index) => {

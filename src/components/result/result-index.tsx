@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import ResultNotation from "@/components/result/result-notation";
 import ResultRecommandation from "@/components/result/result-recommandations";
 import ResultFooter from "@/components/result/result-footer";
 import Loading from "@/components/layout/loading";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Container from "@/components/layout/container";
 import {AnswerState} from "@/types/answer.type";
 import {getMaxPoints} from "@/lib/questions.utils";
@@ -21,26 +22,15 @@ import ResultDomain from "@/components/result/result-domain";
 import ResultRadar from "@/components/result/result-radar";
 import ResultPie from "@/components/result/result-pie";
 import ResultBar from "@/components/result/result-bar";
-import {useAuth} from "@/store/auth-store";
-import {redirect} from "next/navigation";
+import {toPng} from "html-to-image";
 
 export default function ResultIndex() {
-    const [answers, setAnswers] = useState<AnswerState[]>([])
-    const [isLoaded, setIsLoaded] = useState(false)
-    const { auth } = useAuth();
-
-    useEffect(() => {
+    const [answers] = useState<AnswerState[]>(() => {
+        if (typeof window === "undefined") return []
         const saved = localStorage.getItem("answers")
-        if (saved) setAnswers(JSON.parse(saved))
-        setIsLoaded(true)
-    }, [])
-
-    if (!isLoaded) return <Loading/>
-
-    if (!auth) {
-        redirect("/auth")
-    }
-
+        return saved ? JSON.parse(saved) : []
+    })
+    const hasSent = useRef(false);
 
     const USER_POINTS = answers.reduce((sum, v) => sum + v.points, 0)
     const TOTAL_POINTS = getMaxPoints()
@@ -58,6 +48,37 @@ export default function ResultIndex() {
     const effortRepartition = getEffortRepartition(answers);
 
     if (!LEVELS) return <Loading/>
+
+    useEffect(() => {
+        if (hasSent.current) return
+        hasSent.current = true;
+        const sendReport = async () => {
+            await new Promise(r => setTimeout(r, 1000));
+
+            const radarEl = document.getElementById("radar-chart")
+            const pieEl = document.getElementById("pie-chart")
+            const barEl = document.getElementById("bar-chart")
+
+            const radarImage = radarEl ? await toPng(radarEl) : ""
+            const pieImage = pieEl ? await toPng(pieEl) : ""
+            const barImage = barEl ? await toPng(barEl) : ""
+
+
+            await fetch("/api/mail/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    radar: radarImage,
+                    pie: pieImage,
+                    bar: barImage,
+                    answers: answers,
+                })
+            })
+        }
+        sendReport()
+    }, [answers])
 
     return (
         <>

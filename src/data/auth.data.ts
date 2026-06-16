@@ -1,4 +1,4 @@
-import {BuildingIcon, LucideIcon, MessageCircle, User2} from "lucide-react";
+import {BuildingIcon, MessageCircle, User2} from "lucide-react";
 import {AuthStepper} from "@/types/auth.type";
 
 const AUTH_STEPPER: AuthStepper[] = [
