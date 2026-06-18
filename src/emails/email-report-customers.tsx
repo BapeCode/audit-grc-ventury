@@ -30,7 +30,7 @@ export default function EmailReportCustomers({
                     </Container>
                     <Container className="flex flex-col items-start justify-center gap-2">
                         <Text className="text-left text-muted uppercase text-sm font-medium">{date} - Rapport PDF en pièce jointe</Text>
-                        <Heading className="text-left text-text text-4xl font-bold">Nouveau pré-audit</Heading>
+                        <Heading className="text-left text-text text-4xl font-bold">Votre pré-audit</Heading>
                         <Text className="text-left text-muted text-sm">
                             Bonjour {lastname} {firstname}. Merci d&apos;avoir réalisé votre pré-audit de maturité cybersécurité avec Ventury Technology. Votre rapport personalisé est disponible en pièce jointe.
                         </Text>

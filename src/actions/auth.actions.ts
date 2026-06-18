@@ -2,9 +2,9 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import {AuthForm} from "@/types/auth.type";
-import {transporter} from "@/lib/mail";
-import {renderMfaEmail} from "@/lib/email-template";
+import { AuthForm } from "@/types/auth.type";
+import { transporter } from "@/lib/mail";
+import { renderMfaEmail } from "@/lib/email-template";
 
 export async function submitForm(prevState: string, formData: FormData) {
   const data = Object.fromEntries(formData.entries());
@@ -14,7 +14,6 @@ export async function submitForm(prevState: string, formData: FormData) {
     return {
       error: "Le mail est invalide...",
     };
-
 
   try {
     const cookieStore = await cookies();
@@ -33,7 +32,6 @@ export async function submitForm(prevState: string, formData: FormData) {
       sameSite: "strict",
       maxAge: 60 * 5,
     });
-
   } catch (e) {
     console.error(e);
   }
@@ -61,23 +59,25 @@ export async function verify(code: string) {
   const realCode = cookieStore.get("mfa_expected_code")?.value;
 
   if (!realCode) return redirect("/auth");
-  if (!code) return {
-    error: "Le code est invalide..."
-  }
+  if (!code)
+    return {
+      error: "Le code est invalide...",
+    };
 
-  if (realCode !== code) return {
-    error: "Le code est invalide ou expiré. Veuillez réessayer.",
-  }
+  if (realCode !== code)
+    return {
+      error: "Le code est invalide ou expiré. Veuillez réessayer.",
+    };
   cookieStore.set("mfa_verified", "true", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
     maxAge: 60 * 10,
-  })
+  });
 
   await new Promise((r) => setTimeout(r, 1500));
 
-  redirect("/auth/verify")
+  redirect("/auth/verify");
 }
 
 export async function getSession() {
@@ -96,6 +96,7 @@ export async function logout() {
   cookieStore.delete("mfa_excepted_code");
   cookieStore.delete("mfa_verified");
   cookieStore.delete("temp_auth_data");
+  cookieStore.delete("mail_sending");
 
   redirect("/");
 }
@@ -106,10 +107,10 @@ export async function sendMFACode(email: string) {
   try {
     await transporter.sendMail({
       from: process.env.SMTP_USER,
-      to: "bapeoff.official@gmail.com",
+      to: email,
       subject: `Ventury - Confirmation Mail - ${code}`,
-      html: await renderMfaEmail(code, email)
-    })
+      html: await renderMfaEmail(code, email),
+    });
   } catch (e) {
     console.log(`Erreur réseau : ${e}`);
   }

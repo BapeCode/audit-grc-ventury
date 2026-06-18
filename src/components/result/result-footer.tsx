@@ -36,11 +36,6 @@ export default function ResultFooter() {
                         Recommencer l&apos;audit
                     </Button>
                 </form>
-
-                <Button variant={"primary"} className="w-auto gap-2" onClick={handleExport}>
-                    <Download className="h-4 w-4"/>
-                    Exporter en PDF
-                </Button>
             </Container>
         </footer>
     )
