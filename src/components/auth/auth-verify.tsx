@@ -39,13 +39,16 @@ export default function AuthVerify() {
         const { done, value } = await reader.read();
         if (done) break;
         const message = new TextDecoder().decode(value);
-        setLoadingStep(message);
+        const messages = message.split("\n").filter(Boolean); // filter(Boolean) enlève les lignes vides
 
-        if (message === "done") {
-          setTimeout(() => router.push("/result"), 1500);
+        for (const msg of messages) {
+          setLoadingStep(msg.trim());
+
+          if (msg.trim() === "done") {
+            setTimeout(() => router.push("/result"), 1500);
+          }
+          if (msg.trim() === "error") break;
         }
-
-        if (message === "error") break;
       }
     };
     run();

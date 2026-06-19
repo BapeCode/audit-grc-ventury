@@ -9,10 +9,10 @@ export async function POST() {
   const stream = new ReadableStream({
     async start(controller) {
       // Étape 1
-      controller.enqueue(encoder.encode("validating"));
+      controller.enqueue(encoder.encode("validating\n"));
 
       if (!authData) {
-        controller.enqueue(encoder.encode("error"));
+        controller.enqueue(encoder.encode("done\n"));
         return controller.close();
       }
 
