@@ -83,7 +83,7 @@ export default function AuthMFA({ email }: { email: string }) {
         </p>
       </div>
 
-      <div className="flex gap-2 w-full">
+      <div className="flex items-center justify-center gap-2 w-full">
         {code.map((digit, index) => (
           <input
             key={index}
