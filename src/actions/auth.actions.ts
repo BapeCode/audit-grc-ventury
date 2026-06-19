@@ -6,7 +6,10 @@ import { AuthForm } from "@/types/auth.type";
 import { transporter } from "@/lib/mail";
 import { renderMfaEmail } from "@/lib/email-template";
 
-export async function submitForm(prevState: string, formData: FormData) {
+export async function submitForm(
+  prevState: { error: string } | undefined,
+  formData: FormData,
+) {
   const data = Object.fromEntries(formData.entries());
   const email = data.email as string;
 
