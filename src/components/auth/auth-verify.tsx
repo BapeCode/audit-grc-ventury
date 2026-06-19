@@ -51,8 +51,9 @@ export default function AuthVerify() {
     run();
   }, [router]);
 
-  const current =
-    MESSAGES[loadingStep as keyof typeof MESSAGES] ?? MESSAGES["error"];
+  console.log(loadingStep);
+
+  const current = MESSAGES[loadingStep as keyof typeof MESSAGES];
 
   return (
     <div className="flex flex-col justify-center items-center gap-8 flex-1 w-full max-w-3xl mx-auto">
